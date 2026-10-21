@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Học 36 kế</title>
+<meta name="description" content="Học Tam thập lục kế từ bản chất: 10 bài nền tảng, đủ 36 kế với điển tích và phân tích cơ chế, cùng 44 tình huống thời nay để luyện nhận diện. Miễn phí.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Học 36 kế từ bản chất">
+<meta property="og:description" content="10 bài nền tảng, đủ 36 kế với điển tích và phân tích cơ chế, 44 tình huống thời nay để luyện nhận diện. Miễn phí, không cần đăng ký.">
+<meta property="og:locale" content="vi_VN">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='5' fill='%23A8302A'/%3E%3Ctext x='16' y='23.5' font-size='21' text-anchor='middle' fill='%23FBF1EC' font-family='serif'%3E%E8%AE%A1%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <div class="brand"><span class="brand-seal" aria-hidden="true">计</span><span class="brand-t">Tam thập lục kế</span></div>
+    <div class="tabs" role="tablist" aria-label="Chương">
+      <button class="tab" role="tab" id="tab-found" aria-controls="view-found" aria-selected="true"><span class="tl">Nền tảng</span><span class="tc" id="tc-found"></span></button>
+      <button class="tab" role="tab" id="tab-learn" aria-controls="view-learn" aria-selected="false"><span class="tl">Các kế</span><span class="tc" id="tc-learn"></span></button>
+      <button class="tab" role="tab" id="tab-practice" aria-controls="view-practice" aria-selected="false"><span class="tl">Luyện tập</span><span class="tc" id="tc-practice"></span></button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="wrap intro" id="intro"></section>
+
+  <section class="wrap" id="view-found" role="tabpanel" aria-labelledby="tab-found">
+    <div class="learn">
+      <ul class="klist" id="flist" aria-label="Các bài nền tảng"></ul>
+      <article id="fview" class="lesson"></article>
+    </div>
+  </section>
+
+  <section class="wrap" id="view-learn" role="tabpanel" aria-labelledby="tab-learn" hidden>
+    <div class="learn">
+      <ul class="klist" id="klist" aria-label="Danh sách kế"></ul>
+      <article id="kview" aria-live="polite"></article>
+    </div>
+  </section>
+
+  <section class="wrap" id="view-practice" role="tabpanel" aria-labelledby="tab-practice" hidden>
+    <div class="practice" id="pview"></div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Ghi chú và tiến độ được lưu trên trình duyệt này.</span>
+    <span class="foot-r">
+      <a class="bmc-foot" id="bmc-foot" target="_blank" rel="noopener" hidden>☕ Ủng hộ tác giả một ly cà phê</a>
+      <button class="quiet" id="reset">Xóa tiến độ và ghi chú</button>
+    </span>
+  </div>
+</footer>
+
+<script src="js/data/nen-tang.js"></script>
+<script src="js/data/cac-ke.js"></script>
+<script src="js/data/tinh-huong.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
