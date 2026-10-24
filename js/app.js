@@ -24,19 +24,24 @@ function errText(e){
 }
 const RULES = "Phản hồi bằng tiếng Việt, văn xuôi tự nhiên, không dùng markdown, không gạch đầu dòng, không in đậm.";
 
+async function copyText(text){
+  try { await navigator.clipboard.writeText(text); return true; } catch(e) {
+    const ta = document.createElement("textarea");
+    ta.value = text; ta.setAttribute("readonly", ""); ta.style.cssText = "position:fixed;opacity:0";
+    document.body.append(ta); ta.select();
+    let ok = false;
+    try { ok = document.execCommand("copy"); } catch(e2) {}
+    ta.remove();
+    return ok;
+  }
+}
+
 /* Trong artifact thì hỏi Claude ngay trên trang; ngoài artifact thì sao chép prompt để dán vào claude.ai */
 function claudeLabel(t){ return sample ? (t || "Nhờ Claude phản biện") : "Sao chép prompt cho Claude"; }
 function coach(container, prompt, followRule){ (sample ? makeCoach : copyPrompt)(container, prompt, followRule); }
 async function copyPrompt(container, prompt, followRule){
   const full = prompt + "\n\nSau đó, mỗi lần người học trả lời, hãy nhận xét ngắn gọn rồi đặt đúng một câu hỏi phản biện mới, tối đa 120 chữ. " + RULES + " " + (followRule || "Nếu họ đã cho thấy hiểu sâu bản chất, hãy xác nhận điều đó và không hỏi thêm.");
-  let ok = false;
-  try { await navigator.clipboard.writeText(full); ok = true; } catch(e) {
-    const ta = document.createElement("textarea");
-    ta.value = full; ta.setAttribute("readonly", ""); ta.style.cssText = "position:fixed;opacity:0";
-    document.body.append(ta); ta.select();
-    try { ok = document.execCommand("copy"); } catch(e2) {}
-    ta.remove();
-  }
+  const ok = await copyText(full);
   container.classList.add("show");
   container.innerHTML = '<p class="copied">' + (ok
       ? "Đã sao chép prompt. Mở Claude, dán vào khung chat rồi gửi. Claude sẽ nhận xét và hỏi lại, bạn cứ trả lời tiếp trong cuộc trò chuyện đó."
@@ -47,10 +52,55 @@ async function copyPrompt(container, prompt, followRule){
 }
 
 /* ---------- Ủng hộ ---------- */
-const BMC_USER = "36thanhhoake"; // Điền username Buy Me a Coffee (phần sau buymeacoffee.com/). Để trống thì ẩn mọi nút ủng hộ.
-const BMC_URL = BMC_USER ? "https://buymeacoffee.com/" + encodeURIComponent(BMC_USER) : "";
-function bmcHTML(text){ return BMC_URL ? '<p class="bmc"><a href="' + BMC_URL + '" target="_blank" rel="noopener">☕ ' + esc(text) + '</a></p>' : ''; }
-if (BMC_URL) { const a = document.getElementById("bmc-foot"); a.href = BMC_URL; a.hidden = false; }
+/* Điền thông tin nhận ủng hộ. Mục nào để trống thì không hiện; trống hết thì ẩn mọi nút ủng hộ. */
+const DONATE = {
+  bank: {id:"", account:"", name:""}, // id: mã ngân hàng theo VietQR, ví dụ "MB", "VCB", "TCB", "ACB"; name: tên chủ tài khoản, viết hoa không dấu
+  qrImage: "",                        // Hoặc đường dẫn tới ảnh QR có sẵn, ví dụ "qr.png". Chỉ dùng khi không điền bank.
+  note: "Ung ho 36 ke",               // Nội dung chuyển khoản điền sẵn trong mã QR
+  crypto: [
+    // {coin:"USDT", network:"TRC20", address:"T..."},
+  ]
+};
+const bank = DONATE.bank.id && DONATE.bank.account ? DONATE.bank : null;
+const qrSrc = bank
+  ? "https://img.vietqr.io/image/" + encodeURIComponent(bank.id) + "-" + encodeURIComponent(bank.account) + "-compact2.png?addInfo=" + encodeURIComponent(DONATE.note) + "&accountName=" + encodeURIComponent(bank.name)
+  : DONATE.qrImage;
+const canDonate = !!(qrSrc || DONATE.crypto.length);
+function donateHTML(text){ return canDonate ? '<p class="donate-cta"><button class="linkbtn donate-open">☕ ' + esc(text) + '</button></p>' : ''; }
+function copyRow(label, value){
+  return '<div class="crow"><span class="clabel">' + label + '</span><code>' + esc(value) + '</code><button class="btn sm" data-copy="' + esc(value) + '">Sao chép</button></div>';
+}
+function openDonate(){
+  let d = document.getElementById("donate");
+  if (!d) {
+    d = document.createElement("dialog");
+    d.id = "donate"; d.className = "donate"; d.setAttribute("aria-labelledby", "donate-h");
+    let h = '<div class="dhead"><h2 id="donate-h">Ủng hộ tác giả</h2><button class="btn sq" data-close aria-label="Đóng">×</button></div>' +
+      '<p class="dlead">Trang này miễn phí và không có quảng cáo. Nếu nó giúp ích cho bạn, một ly cà phê sẽ giúp mình có thêm thời gian viết thêm tình huống và bài học.</p>';
+    if (qrSrc) {
+      h += '<section class="dsec"><h3>Chuyển khoản ngân hàng</h3><img class="qr" src="' + esc(qrSrc) + '" alt="Mã QR chuyển khoản" width="260" height="260">' +
+        '<p class="dhint">Mở app ngân hàng hoặc MoMo, chọn quét QR. Nếu đang dùng điện thoại, nhấn giữ ảnh để lưu rồi chọn quét QR từ ảnh.</p>' +
+        (bank ? copyRow("Ngân hàng", bank.id) + copyRow("Số tài khoản", bank.account) + (bank.name ? copyRow("Chủ tài khoản", bank.name) : "") : "") + '</section>';
+    }
+    if (DONATE.crypto.length) {
+      h += '<section class="dsec"><h3>Crypto</h3>' + DONATE.crypto.map(c =>
+        '<div class="wallet"><p class="wname">' + esc(c.coin) + ' <span class="net">mạng ' + esc(c.network) + '</span></p>' + copyRow("Địa chỉ", c.address) +
+        '<p class="dwarn">Chỉ gửi ' + esc(c.coin) + ' qua mạng ' + esc(c.network) + '. Gửi nhầm mạng sẽ mất tiền.</p></div>').join("") + '</section>';
+    }
+    d.innerHTML = h;
+    document.body.append(d);
+    d.addEventListener("click", async e => {
+      if (e.target === d || e.target.closest("[data-close]")) { d.close(); return; }
+      const b = e.target.closest("[data-copy]"); if (!b) return;
+      const ok = await copyText(b.dataset.copy);
+      b.textContent = ok ? "Đã chép ✓" : "Không chép được";
+      setTimeout(() => { b.textContent = "Sao chép"; }, 1600);
+    });
+  }
+  d.showModal();
+}
+document.addEventListener("click", e => { if (e.target.closest(".donate-open")) openDonate(); });
+if (canDonate) document.getElementById("donate-foot").hidden = false;
 
 function makeCoach(container, firstPrompt, followRule){
   container.innerHTML = "";
@@ -169,7 +219,7 @@ function renderLesson(){
       '<div class="row"><span class="saved" id="wsaved"></span><button class="btn primary" id="wcrit">' + claudeLabel("Nhờ Claude phản biện bài phân tích") + '</button>' +
       '<button class="btn" id="wdone"></button></div><div class="coach" id="wcoach" aria-live="polite"></div></section>';
   }
-  if (allDone) h += '<div class="done-banner"><p>Bạn đã học xong phần nền tảng. Khi sang phần các kế, để ý xem mỗi kế tạo ra chỗ hư nào, dựa vào cái chính nào và cần thế ra sao.</p><button class="btn primary" id="gokeys">Sang phần các kế</button>' + bmcHTML("Thấy bổ ích? Mời tác giả một ly cà phê") + '</div>';
+  if (allDone) h += '<div class="done-banner"><p>Bạn đã học xong phần nền tảng. Khi sang phần các kế, để ý xem mỗi kế tạo ra chỗ hư nào, dựa vào cái chính nào và cần thế ra sao.</p><button class="btn primary" id="gokeys">Sang phần các kế</button>' + donateHTML("Thấy bổ ích? Mời tác giả một ly cà phê") + '</div>';
   h += '<nav class="lnav">' + (f.id > 1 ? '<button class="btn navbtn" id="fprev"><small>Bài trước</small>' + esc(fById[f.id-1].title) + '</button>' : '<span></span>') +
        (f.id < F.length ? '<button class="btn primary navbtn next" id="fnext"><small>Bài tiếp</small>' + esc(fById[f.id+1].title) + '</button>' : '<button class="btn primary navbtn next" id="fnext"><small>Xong phần nền tảng</small>Sang phần các kế</button>') + '</nav>';
   v.innerHTML = h;
@@ -343,7 +393,7 @@ function renderKe(stamp){
   const paintU = () => { const on = !!state.understood[k.id]; ub.textContent = on ? "Đã hiểu ✓" : "Đánh dấu đã hiểu"; ub.classList.toggle("on", on); ub.setAttribute("aria-pressed", on); };
   const paintAll = () => {
     const box = document.getElementById("kalldone");
-    box.innerHTML = K.every(x => state.understood[x.id]) ? '<div class="done-banner"><p>Bạn đã đánh dấu hiểu đủ 36 kế. Bước tiếp theo là nhận ra chúng trong những tình huống không ghi tên kế.</p><button class="btn primary" id="gopractice">Sang luyện tình huống</button>' + bmcHTML("Thấy bổ ích? Mời tác giả một ly cà phê") + '</div>' : '';
+    box.innerHTML = K.every(x => state.understood[x.id]) ? '<div class="done-banner"><p>Bạn đã đánh dấu hiểu đủ 36 kế. Bước tiếp theo là nhận ra chúng trong những tình huống không ghi tên kế.</p><button class="btn primary" id="gopractice">Sang luyện tình huống</button>' + donateHTML("Thấy bổ ích? Mời tác giả một ly cà phê") + '</div>' : '';
     const gp = document.getElementById("gopractice"); if (gp) gp.onclick = () => show("practice", true);
   };
   paintU(); paintAll();

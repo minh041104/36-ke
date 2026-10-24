@@ -16,12 +16,26 @@ Phông chữ được tải từ Google Fonts, nên khi không có mạng trang 
 
 > **Phản biện bằng Claude:** khi trang được mở dưới dạng artifact trong Claude, Claude hỏi vặn ngay trên trang. Ở mọi nơi khác (chạy trên máy, GitHub Pages), nút đổi thành "Sao chép prompt cho Claude": trang soạn sẵn đề phản biện kèm bài làm của người học, sao chép vào bộ nhớ tạm, người học chỉ cần dán vào claude.ai (bản miễn phí cũng được).
 
-## Nút ủng hộ Buy Me a Coffee
+## Nút ủng hộ (chuyển khoản và crypto)
 
-1. Tạo tài khoản ở [buymeacoffee.com](https://buymeacoffee.com) và chọn username.
-2. Mở `js/app.js`, tìm dòng `const BMC_USER = "";` và điền username vào giữa hai dấu ngoặc kép, ví dụ `const BMC_USER = "ten-ban";`.
+Mở `js/app.js` và tìm `const DONATE`:
 
-Khi `BMC_USER` để trống, mọi nút ủng hộ đều ẩn. Khi đã điền, nút hiện ở chân trang, ở màn học xong phần nền tảng và ở màn đánh dấu hiểu đủ 36 kế.
+```js
+const DONATE = {
+  bank: {id:"MB", account:"0123456789", name:"NGUYEN VAN A"},
+  qrImage: "",
+  note: "Ung ho 36 ke",
+  crypto: [
+    {coin:"USDT", network:"TRC20", address:"T..."},
+  ]
+};
+```
+
+- `bank`: điền mã ngân hàng theo VietQR (`MB`, `VCB`, `TCB`, `ACB`...), số tài khoản và tên chủ tài khoản. Mã QR được tạo tự động qua vietqr.io, quét được bằng mọi app ngân hàng và MoMo.
+- `qrImage`: nếu không muốn điền `bank`, đặt ảnh QR có sẵn vào thư mục gốc rồi ghi tên file, ví dụ `"qr.png"`.
+- `crypto`: mỗi ví một dòng, ghi rõ mạng để người gửi không chọn nhầm.
+
+Khi mọi mục đều trống, nút ủng hộ được ẩn. Khi có ít nhất một mục, nút hiện ở chân trang, ở màn học xong phần nền tảng và ở màn đánh dấu hiểu đủ 36 kế; bấm vào sẽ mở khung có mã QR và địa chỉ ví kèm nút sao chép.
 
 ## Cấu trúc thư mục
 
