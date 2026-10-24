@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Học 36 kế</title>
-<meta name="description" content="Học Tam thập lục kế từ bản chất: 10 bài nền tảng, đủ 36 kế với điển tích và phân tích cơ chế, cùng 44 tình huống thời nay để luyện nhận diện. Miễn phí.">
+<title>Học 36 kế từ bản chất</title>
+<meta name="description" content="Học Tam thập lục kế từ bản chất: 10 bài nền tảng, đủ 36 kế với điển tích và phân tích cơ chế, cùng 44 tình huống thời nay để luyện nhận diện. Miễn phí, không cần tài khoản.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Học 36 kế từ bản chất">
 <meta property="og:description" content="10 bài nền tảng, đủ 36 kế với điển tích và phân tích cơ chế, 44 tình huống thời nay để luyện nhận diện. Miễn phí, không cần đăng ký.">
@@ -14,48 +14,103 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/landing.css">
 </head>
-<body>
+<body class="landing">
 
 <header class="bar">
   <div class="wrap">
-    <div class="brand"><span class="brand-seal" aria-hidden="true">计</span><span class="brand-t">Tam thập lục kế</span></div>
-    <div class="tabs" role="tablist" aria-label="Chương">
-      <button class="tab" role="tab" id="tab-found" aria-controls="view-found" aria-selected="true"><span class="tl">Nền tảng</span><span class="tc" id="tc-found"></span></button>
-      <button class="tab" role="tab" id="tab-learn" aria-controls="view-learn" aria-selected="false"><span class="tl">Các kế</span><span class="tc" id="tc-learn"></span></button>
-      <button class="tab" role="tab" id="tab-practice" aria-controls="view-practice" aria-selected="false"><span class="tl">Luyện tập</span><span class="tc" id="tc-practice"></span></button>
-    </div>
+    <a class="brand" href="./"><span class="brand-seal" aria-hidden="true">计</span><span class="brand-t">Tam thập lục kế</span></a>
+    <nav class="lnk" aria-label="Mục lục">
+      <a href="#xem-truoc">Xem trước</a>
+      <a href="#thu">Làm thử</a>
+      <a href="#hoi-dap">Hỏi đáp</a>
+    </nav>
+    <a class="btn primary" href="hoc/" data-go>Vào học</a>
   </div>
 </header>
 
 <main>
-  <section class="wrap intro" id="intro"></section>
-
-  <section class="wrap" id="view-found" role="tabpanel" aria-labelledby="tab-found">
-    <div class="learn">
-      <ul class="klist" id="flist" aria-label="Các bài nền tảng"></ul>
-      <article id="fview" class="lesson"></article>
+  <section class="wrap hero">
+    <div class="hero-t">
+      <p class="eyebrow"><span lang="zh">三十六计</span> · Tam thập lục kế</p>
+      <h1>Hiểu 36 kế từ bản chất, không học thuộc tên</h1>
+      <p class="hero-p">Mỗi kế là một cơ chế: tạo ra chỗ hư nào, dựa vào cái chính nào, và gãy khi nào. Học qua điển tích trong chính sử, rồi luyện nhận ra chúng trong đàm phán, công sở và kinh doanh thời nay.</p>
+      <div class="cta">
+        <a class="btn primary big" href="hoc/" id="start" data-go>Bắt đầu học</a>
+        <a class="btn big" href="#thu">Làm thử một tình huống</a>
+      </div>
+      <p class="resume" id="resume" hidden></p>
+    </div>
+    <div class="hero-v" aria-hidden="true">
+      <div class="grid36" id="grid36"></div>
+      <p class="grid-cap">36 kế, tô màu theo 6 lăng kính</p>
     </div>
   </section>
 
-  <section class="wrap" id="view-learn" role="tabpanel" aria-labelledby="tab-learn" hidden>
-    <div class="learn">
-      <ul class="klist" id="klist" aria-label="Danh sách kế"></ul>
-      <article id="kview" aria-live="polite"></article>
+  <section class="wrap">
+    <ul class="stats" id="stats"></ul>
+  </section>
+
+  <section class="wrap band">
+    <h2 class="h2">Khác gì cách học thường thấy</h2>
+    <div class="cards">
+      <div class="card"><h3>Cơ chế, không phải thành ngữ</h3><p>Mỗi kế được mổ xẻ theo bốn câu hỏi: cơ chế là gì, cần điều kiện gì, gãy ở đâu, và làm sao nhận ra khi người khác dùng nó với mình.</p></div>
+      <div class="card"><h3>Điển tích có nguồn</h3><p>Ưu tiên lấy từ chính sử như Sử ký, Tả truyện, Tam quốc chí. Chỗ nào thuộc Tam quốc diễn nghĩa hay truyền thuyết đều được ghi chú rõ.</p></div>
+      <div class="card"><h3>Luyện trên tình huống thật</h3><p>44 tình huống thời nay không ghi tên kế. Bạn phải tự nhận ra điều gì đang bị tác động, rồi mới chọn kế.</p></div>
+      <div class="card"><h3>Có người hỏi vặn</h3><p>Viết lại cơ chế bằng lời của bạn, rồi sao chép prompt có sẵn bài làm sang Claude để được phản biện theo kiểu Socrates.</p></div>
     </div>
   </section>
 
-  <section class="wrap" id="view-practice" role="tabpanel" aria-labelledby="tab-practice" hidden>
-    <div class="practice" id="pview"></div>
+  <section class="wrap band" id="xem-truoc">
+    <h2 class="h2">Xem trước một kế</h2>
+    <p class="sub">Đây là cách một kế được trình bày trong phần học, rút gọn.</p>
+    <article class="preview" id="preview"></article>
+  </section>
+
+  <section class="wrap band" id="thu">
+    <h2 class="h2">Làm thử một tình huống</h2>
+    <p class="sub">Đọc tình huống, rồi chọn kế bạn cho là đang được dùng.</p>
+    <div class="try" id="try"></div>
+  </section>
+
+  <section class="wrap band">
+    <h2 class="h2">Học theo ba bước</h2>
+    <ol class="steps">
+      <li><span class="sn">1</span><div><h3>Nền tảng</h3><p>10 bài về cách đọc văn bản 36 kế, âm dương biến dịch, hư thực, chính kỳ, thế, và cách phá kế. Nắm phần này thì các kế sau đọc là hiểu.</p></div></li>
+      <li><span class="sn">2</span><div><h3>Các kế</h3><p>Đủ 36 kế, chia theo sáu lăng kính: Nhận thức, Vị trí, Bên thứ ba, Thời cơ và nguồn lực, Tâm lý và động cơ, Trọng tâm và cấu trúc.</p></div></li>
+      <li><span class="sn">3</span><div><h3>Luyện tập</h3><p>Năm bộ tình huống theo lăng kính, và một bộ trộn tất cả, nơi bạn phải chọn lăng kính trước rồi mới chọn kế.</p></div></li>
+    </ol>
+    <p class="cta-row"><a class="btn primary big" href="hoc/" data-go>Bắt đầu với bài nền tảng đầu tiên</a></p>
+  </section>
+
+  <section class="wrap band" id="hoi-dap">
+    <h2 class="h2">Hỏi đáp</h2>
+    <div class="faq">
+      <details><summary>Có mất phí không?</summary><p>Không. Trang miễn phí, không quảng cáo và không cần tạo tài khoản. Nếu thấy hữu ích, bạn có thể ủng hộ tác giả ở cuối trang.</p></details>
+      <details><summary>Tiến độ học được lưu ở đâu?</summary><p>Ngay trên trình duyệt bạn đang dùng. Không có gì được gửi đi đâu cả. Vì vậy nếu đổi máy, đổi trình duyệt hoặc xóa dữ liệu duyệt web, tiến độ và ghi chú sẽ mất.</p></details>
+      <details><summary>Dùng Claude để phản biện thế nào?</summary><p>Ở mỗi bài tự viết có nút “Sao chép prompt cho Claude”. Trang soạn sẵn đề phản biện kèm bài làm của bạn. Bạn mở claude.ai, dán vào và gửi; Claude sẽ nhận xét rồi hỏi vặn từng câu. Bản Claude miễn phí cũng dùng được.</p></details>
+      <details><summary>36 kế có phải binh pháp cổ của Tôn Tử không?</summary><p>Không. Cụm từ “ba mươi sáu kế” xuất hiện sớm nhất trong Nam Tề thư, nhưng văn bản hoàn chỉnh do một người khuyết danh soạn, có lẽ vào cuối Minh đầu Thanh, và đến năm 1941 mới được in. Bài nền tảng đầu tiên nói kỹ về chuyện này.</p></details>
+      <details><summary>Học 36 kế để lừa người khác à?</summary><p>Mục đích chính là nhận ra. Kế nào cũng có phần “nhận diện” và “điểm gãy”, và phần nền tảng có hẳn một bài về phá kế và phòng thủ. Với đa số người, biết phá kế hữu ích hơn biết dùng kế.</p></details>
+    </div>
+  </section>
+
+  <section class="wrap band support" id="ung-ho" hidden>
+    <div class="support-box">
+      <div>
+        <h2 class="h2">Ủng hộ tác giả</h2>
+        <p>Trang này được làm và duy trì bởi một người. Một ly cà phê giúp mình có thêm thời gian viết tình huống và bài học mới.</p>
+      </div>
+      <button class="btn primary big donate-open">☕ Mời một ly cà phê</button>
+    </div>
   </section>
 </main>
 
 <footer>
   <div class="wrap">
-    <span>Ghi chú và tiến độ được lưu trên trình duyệt này.</span>
+    <span>Học 36 kế từ bản chất · <a href="https://github.com/minh041104/36-ke" target="_blank" rel="noopener">Mã nguồn trên GitHub</a></span>
     <span class="foot-r">
-      <button class="donate-foot donate-open" id="donate-foot" hidden>☕ Ủng hộ tác giả một ly cà phê</button>
-      <button class="quiet" id="reset">Xóa tiến độ và ghi chú</button>
+      <button class="donate-foot donate-open" hidden>☕ Ủng hộ tác giả một ly cà phê</button>
     </span>
   </div>
 </footer>
@@ -64,6 +119,8 @@
 <script src="js/data/cac-ke.js"></script>
 <script src="js/data/tinh-huong.js"></script>
 <script src="js/vendor/qrcode.js"></script>
-<script src="js/app.js"></script>
+<script src="js/common.js"></script>
+<script src="js/donate.js"></script>
+<script src="js/landing.js"></script>
 </body>
 </html>

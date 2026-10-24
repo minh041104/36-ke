@@ -8,7 +8,7 @@ Web học Tam thập lục kế theo hướng hiểu cơ chế thay vì học th
 
 ## Chạy trên máy
 
-Không cần cài đặt gì. Mở file `index.html` bằng trình duyệt (nhấp đúp là được).
+Không cần cài đặt gì. Mở file `index.html` (trang giới thiệu) hoặc `hoc/index.html` (trang học) bằng trình duyệt, nhấp đúp là được.
 
 Ghi chú, bài làm và tiến độ được lưu trong trình duyệt bạn dùng (localStorage). Đổi trình duyệt hoặc xóa dữ liệu duyệt web thì tiến độ sẽ mất.
 
@@ -18,7 +18,7 @@ Phông chữ được tải từ Google Fonts, nên khi không có mạng trang 
 
 ## Nút ủng hộ (chuyển khoản và crypto)
 
-Mở `js/app.js` và tìm `const DONATE`:
+Mở `js/donate.js` và tìm `const DONATE`:
 
 ```js
 const DONATE = {
@@ -41,14 +41,22 @@ Khi mọi mục đều trống, nút ủng hộ được ẩn. Khi có ít nhấ
 
 ```
 36-ke/
-├── index.html              Khung trang
-├── css/style.css           Giao diện, có sẵn chế độ sáng và tối
+├── index.html              Trang giới thiệu (landing)
+├── hoc/index.html          Trang học
+├── qr-momo.jpg             Ảnh QR nhận ủng hộ
+├── css/
+│   ├── style.css           Giao diện chung, có sẵn chế độ sáng và tối
+│   └── landing.css         Giao diện riêng của trang giới thiệu
 └── js/
     ├── data/
     │   ├── nen-tang.js     10 bài nền tảng
     │   ├── cac-ke.js       36 kế
     │   └── tinh-huong.js   Các tình huống luyện tập
-    └── app.js              Logic hiển thị, lưu tiến độ, luyện tập
+    ├── vendor/qrcode.js    Thư viện tạo mã QR (qrcode-generator, MIT)
+    ├── common.js           Hàm dùng chung
+    ├── donate.js           Thông tin và khung ủng hộ
+    ├── landing.js          Logic trang giới thiệu
+    └── app.js              Logic trang học: hiển thị, lưu tiến độ, luyện tập
 ```
 
 Nội dung và code được tách riêng: muốn sửa hay thêm nội dung, bạn chỉ cần sửa các file trong `js/data/`.
