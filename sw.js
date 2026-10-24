@@ -1,5 +1,5 @@
 /* Service worker: luôn lấy bản mới từ mạng, chỉ dùng bản đã lưu khi mất mạng. Đổi VERSION khi đổi danh sách PRECACHE. */
-const VERSION = "v1";
+const VERSION = "v2";
 const CACHE = "36ke-" + VERSION;
 const PRECACHE = [
   "./", "hoc/", "ke/", "nen-tang/", "manifest.webmanifest",

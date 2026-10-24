@@ -6,6 +6,8 @@ const fs = require("fs"), path = require("path"), vm = require("vm");
 
 const ROOT = path.join(__dirname, "..");
 const SITE = "https://minh041104.github.io/36-ke/";
+/* Mã xác minh Google Search Console (phần content của thẻ meta google-site-verification). Để trống thì không gắn. */
+const GOOGLE_VERIFY = "FGbbmpqThfYBVA9GvOYexP7MQaqKJ3QKel1w8BdL_CI";
 const DOMAIN_IDS = ["lam-viec", "hoc-tap", "tinh-yeu", "gia-dinh", "mua-sam"];
 
 /* ---------- Đọc dữ liệu ---------- */
@@ -35,6 +37,7 @@ function seoHead({title, desc, url, img, up, type, ld, app}){
     '<title>' + esc(title) + '</title>',
     '<meta name="description" content="' + esc(desc) + '">',
     '<link rel="canonical" href="' + SITE + url + '">',
+    GOOGLE_VERIFY && url === "" ? '<meta name="google-site-verification" content="' + esc(GOOGLE_VERIFY) + '">' : '',
     '<meta property="og:type" content="' + (type || "website") + '">',
     '<meta property="og:site_name" content="Học 36 kế">',
     '<meta property="og:title" content="' + esc(title.replace(/ · Học 36 kế$/, "")) + '">',
