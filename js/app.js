@@ -1,5 +1,7 @@
 /* ---------- Dữ liệu ---------- */
 const byId = Object.fromEntries(K.map(k => [k.id, k]));
+const DOMAINS = window.LV || [];
+const ALL_S = S.concat(...DOMAINS.map(d => d.scenarios));
 
 /* ---------- Lưu trữ ---------- */
 const KEY = "k36-nhanthuc-v1";
@@ -109,10 +111,10 @@ function renderIntro(){
 function renderProgress(){
   const f = F.filter(x => state.fdone[x.id]).length;
   const u = K.filter(k => state.understood[k.id]).length;
-  const q = S.filter(s => state.quiz[s.id] === "correct").length;
+  const q = ALL_S.filter(s => state.quiz[s.id] === "correct").length;
   document.getElementById("tc-found").textContent = f + "/" + F.length;
   document.getElementById("tc-learn").textContent = u + "/" + K.length;
-  document.getElementById("tc-practice").textContent = q + "/" + S.length;
+  document.getElementById("tc-practice").textContent = q + "/" + ALL_S.length;
 }
 
 /* ---------- Nền tảng ---------- */
@@ -297,6 +299,7 @@ function renderKe(stamp){
   const v = document.getElementById("kview");
   const other = byId[k.confuse.id];
   const idx = ORDER.indexOf(k), prev = ORDER[idx-1], next = ORDER[idx+1];
+  const uses = DOMAINS.map(d => ({d, x:d.ke.find(e => e.id === k.id)})).filter(u => u.x);
   v.innerHTML =
     '<div class="khead">' + sealHTML(k, stamp ? "stamp" : "") + '<div><p class="kmeta"><span class="ltag ' + k.lens + '">' + esc(lensName(k.lens)) + '</span><span>Kế ' + (idx+1) + '/' + ORDER.length + ' theo thứ tự học</span></p><h2>' + esc(k.name) + '</h2><p class="literal">' + esc(k.literal) + '</p><p class="group">Kế thứ ' + k.id + ' trong 36 kế, thuộc ' + esc(k.group) + '.</p></div></div>' +
     '<section class="sect"><h3>Điển tích</h3><p class="story">' + esc(k.story) + '</p>' + (k.note ? '<p class="story-note">' + esc(k.note) + '</p>' : '') + '</section>' +
@@ -307,6 +310,9 @@ function renderKe(stamp){
       '<div><dt>Nhận diện</dt><dd>' + esc(k.detect) + '</dd></div>' +
     '</dl></section>' +
     '<section class="sect confuse ' + other.lens + '"><strong>Dễ nhầm với </strong><button class="linkbtn" id="goto">' + esc(other.name) + '</button><p>' + esc(k.confuse.text) + '</p></section>' +
+    (uses.length ? '<section class="sect"><h3>Gặp trong đời sống</h3><div class="lvtabs" role="group" aria-label="Lĩnh vực">' +
+      uses.map((u, i) => '<button class="setbtn" data-lv="' + i + '" aria-pressed="' + (i === 0) + '">' + esc(u.d.name) + '</button>').join("") +
+      '</div><div id="lvbody"></div></section>' : '') +
     '<section class="sect"><h3>Phân tích của bạn</h3>' +
       '<p class="note-prompt">Viết lại cơ chế của kế này bằng lời của bạn, không dùng thành ngữ. Kế này tạo ra hay khai thác chỗ hư nào, và dựa vào cái chính nào? Sau đó nêu một ví dụ bạn từng gặp hoặc tự nghĩ ra.</p>' +
       '<textarea id="note" aria-label="Phân tích của bạn"></textarea>' +
@@ -319,6 +325,19 @@ function renderKe(stamp){
     '<nav class="lnav">' + (prev ? '<button class="btn navbtn" id="kprev"><small>Kế trước</small>' + esc(prev.name) + '</button>' : '<span></span>') +
       (next ? '<button class="btn navbtn next" id="knext"><small>Kế tiếp</small>' + esc(next.name) + '</button>' : '<button class="btn primary navbtn next" id="knext"><small>Đã hết 36 kế</small>Sang luyện tình huống</button>') + '</nav>';
   document.getElementById("goto").onclick = () => { openKe(other.id); toTopOf(views.learn); };
+  if (uses.length) {
+    const showLv = i => {
+      const u = uses[i];
+      v.querySelectorAll(".lvtabs .setbtn").forEach(b => b.setAttribute("aria-pressed", +b.dataset.lv === i));
+      document.getElementById("lvbody").innerHTML = '<dl class="anal lvanal">' +
+        '<div><dt>Biểu hiện</dt><dd>' + esc(u.x.how) + '</dd></div>' +
+        '<div><dt>Dấu hiệu</dt><dd>' + esc(u.x.signs) + '</dd></div>' +
+        '<div><dt>Cách ứng xử</dt><dd>' + esc(u.x.respond) + '</dd></div></dl>' +
+        '<p class="lvmore"><a href="../' + u.d.id + '/">Các kế khác hay gặp ở lĩnh vực ' + esc(u.d.name) + '</a> · <a href="#luyen-' + u.d.id + '">Luyện ' + u.d.scenarios.length + ' tình huống</a></p>';
+    };
+    v.querySelectorAll(".lvtabs .setbtn").forEach(b => b.onclick = () => showLv(+b.dataset.lv));
+    showLv(0);
+  }
   const kp = document.getElementById("kprev"); if (kp) kp.onclick = () => { openKe(prev.id); toTopOf(views.learn); };
   document.getElementById("knext").onclick = () => { if (next) { openKe(next.id); toTopOf(views.learn); } else show("practice", true); };
   const note = document.getElementById("note"), saved = document.getElementById("saved");
@@ -358,15 +377,23 @@ const SETS = [
   {id:"trongtam", name:"Trọng tâm và cấu trúc", lenses:["l6"]},
   {id:"all", name:"Trộn tất cả", lenses:null}
 ];
+/* Mỗi lĩnh vực là một bộ riêng: tình huống và lựa chọn lấy từ file lĩnh vực */
+DOMAINS.forEach(d => SETS.push({id:"lv-" + d.id, name:d.name, domain:d}));
 let setId = "nhanthuc", si = 0, pickLens = null, pickFor = null;
 function setScen(id){
+  const st = SETS.find(x => x.id === id);
+  if (st.domain) return st.domain.scenarios;
   if (id !== "all") return S.filter(s => (s.set || "nhanthuc") === id);
-  const groups = SETS.filter(x => x.id !== "all").map(x => setScen(x.id)), out = [];
+  const groups = SETS.filter(x => x.id !== "all" && !x.domain).map(x => setScen(x.id)), out = [];
   for (let i = 0; groups.some(g => i < g.length); i++) groups.forEach(g => { if (i < g.length) out.push(g[i]); });
   return out;
 }
-function setOpts(id){ const st = SETS.find(x => x.id === id); return K.filter(k => !st.lenses || st.lenses.includes(k.lens)).sort(byLens); }
-function setLensCount(id){ const st = SETS.find(x => x.id === id); return st.lenses ? st.lenses.length : LENS_ORDER.length; }
+function setOpts(id){
+  const st = SETS.find(x => x.id === id);
+  if (st.domain) return st.domain.ke.map(x => byId[x.id]);
+  return K.filter(k => !st.lenses || st.lenses.includes(k.lens)).sort(byLens);
+}
+function setLensCount(id){ const st = SETS.find(x => x.id === id); return st.domain ? new Set(setOpts(id).map(k => k.lens)).size : st.lenses ? st.lenses.length : LENS_ORDER.length; }
 function curScen(){ return setScen(setId)[si]; }
 function optButtons(ks){ return '<div class="opts">' + ks.map(k => '<button class="opt" data-id="' + k.id + '"><span class="knum">' + k.id + '</span>' + esc(k.name) + '</button>').join("") + '</div>'; }
 function renderPractice(){
@@ -389,6 +416,8 @@ function renderPractice(){
       optsHTML = '<p class="qlabel">Bước 2: Trong lăng kính <span class="ltag ' + pickLens + '">' + esc(lensName(pickLens)) + '</span> đây là kế nào?</p>' +
         (res ? '' : '<p class="stepback"><button class="linkbtn" id="relens">Chọn lại lăng kính</button></p>') + optButtons(opts.filter(k => k.lens === pickLens));
     }
+  } else if (SETS.find(x => x.id === setId).domain) {
+    optsHTML = '<p class="qlabel">Đây chủ yếu là kế nào?</p>' + optButtons(opts);
   } else {
     optsHTML = '<p class="qlabel">Đây chủ yếu là kế nào?</p>';
     LENS_ORDER.forEach(c => {
@@ -403,7 +432,7 @@ function renderPractice(){
     ? '<div class="segbar" role="group" aria-label="Chọn tình huống">' + list.map((x,i) => '<button class="seg ' + (state.quiz[x.id]||"") + '" data-i="' + i + '" aria-label="Tình huống ' + (i+1) + '"' + (i===si ? ' aria-current="true"' : '') + '></button>').join("") + '</div>'
     : '<div class="dots">' + list.map((x,i) => '<button class="dot ' + (state.quiz[x.id]||"") + '" data-i="' + i + '" aria-label="Tình huống ' + (i+1) + '"' + (i===si ? ' aria-current="true"' : '') + '>' + (i+1) + '</button>').join("") + '</div>';
   p.innerHTML =
-    '<div class="sets" role="group" aria-label="Bộ tình huống">' + SETS.map(x => { const l = setScen(x.id); const c = l.filter(y => state.quiz[y.id] === "correct").length; return '<button class="setbtn" data-s="' + x.id + '" aria-pressed="' + (x.id === setId) + '">' + esc(x.name) + ' <span class="cnt">' + c + '/' + l.length + '</span></button>'; }).join("") + '</div>' +
+    '<div class="sets" role="group" aria-label="Bộ tình huống">' + SETS.map((x, i) => { const l = setScen(x.id); const c = l.filter(y => state.quiz[y.id] === "correct").length; return (x.domain && !SETS[i-1].domain ? '<span class="setsep">Theo lĩnh vực</span>' : '') + '<button class="setbtn" data-s="' + x.id + '" aria-pressed="' + (x.id === setId) + '">' + esc(x.name) + ' <span class="cnt">' + c + '/' + l.length + '</span></button>'; }).join("") + '</div>' +
     '<div class="pnav"><div class="pstep"><button class="btn sq" id="pprev" aria-label="Tình huống trước"' + (si === 0 ? ' disabled' : '') + '>‹</button><span class="pcount">Tình huống ' + (si+1) + ' trên ' + list.length + '</span><button class="btn sq" id="pnext" aria-label="Tình huống tiếp"' + (si === list.length-1 ? ' disabled' : '') + '>›</button></div>' +
     (res && firstUn >= 0 && firstUn !== si ? '<button class="linkbtn small" id="pjump">Tới câu chưa làm</button>' : '') +
     '<span class="score">' + (doneN ? "Đúng " + correctN + " trên " + doneN + " câu đã làm" : "Chưa làm câu nào trong bộ này") + '</span>' + nav + '</div>' +
@@ -490,8 +519,21 @@ document.getElementById("reset").onclick = () => {
   state = blank(); save(); renderProgress(); rerenderCurrent();
 };
 
+/* Link sâu: #ke-17 mở một kế, #luyen-lam-viec hay #luyen-tamly mở một bộ tình huống */
+function applyHash(){
+  const h = decodeURIComponent(location.hash.slice(1));
+  if (h) history.replaceState(null, "", location.pathname + location.search);
+  let m = h.match(/^ke-(\d+)$/);
+  if (m && byId[+m[1]]) { current = +m[1]; show("learn", true); return true; }
+  m = h.match(/^luyen-(.+)$/);
+  const st = m && SETS.find(x => x.id === m[1] || x.id === "lv-" + m[1]);
+  if (st) { setId = st.id; si = 0; pickFor = null; show("practice", true); return true; }
+  return false;
+}
+window.addEventListener("hashchange", applyHash);
+
 /* Mở chương Nền tảng nếu chưa xong, ngược lại mở Các kế */
 if (F.every(x => state.fdone[x.id])) active = "learn";
 else { const first = F.find(x => !state.fdone[x.id]); if (first) fcur = first.id; }
-show(active, false);
+if (!applyHash()) show(active, false);
 renderProgress();

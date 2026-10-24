@@ -43,6 +43,7 @@ Khi mọi mục đều trống, nút ủng hộ được ẩn. Khi có ít nhấ
 36-ke/
 ├── index.html              Trang giới thiệu (landing)
 ├── hoc/index.html          Trang học
+├── lam-viec/index.html     Trang lĩnh vực Làm việc
 ├── qr-momo.jpg             Ảnh QR nhận ủng hộ
 ├── css/
 │   ├── style.css           Giao diện chung, có sẵn chế độ sáng và tối
@@ -51,11 +52,13 @@ Khi mọi mục đều trống, nút ủng hộ được ẩn. Khi có ít nhấ
     ├── data/
     │   ├── nen-tang.js     10 bài nền tảng
     │   ├── cac-ke.js       36 kế
-    │   └── tinh-huong.js   Các tình huống luyện tập
+    │   ├── tinh-huong.js   Các tình huống luyện tập
+    │   └── linh-vuc/       Mỗi lĩnh vực một file (kế liên quan, cách ứng xử, tình huống)
     ├── vendor/qrcode.js    Thư viện tạo mã QR (qrcode-generator, MIT)
     ├── common.js           Hàm dùng chung
     ├── donate.js           Thông tin và khung ủng hộ
     ├── landing.js          Logic trang giới thiệu
+    ├── linh-vuc.js         Logic trang lĩnh vực (dùng chung cho mọi lĩnh vực)
     └── app.js              Logic trang học: hiển thị, lưu tiến độ, luyện tập
 ```
 
@@ -75,6 +78,16 @@ Nội dung và code được tách riêng: muốn sửa hay thêm nội dung, b�
 - `id`: chuỗi không trùng với tình huống khác (tiến độ được lưu theo id này).
 - `set`: bộ tình huống, một trong `nhanthuc`, `vitri`, `thoico`, `tamly`, `trongtam`.
 - `answers`: số thứ tự của kế đúng; `partial`: kế được tính là gần đúng. Các kế này phải thuộc lăng kính của bộ đó.
+
+**Thêm một lĩnh vực** (ví dụ Học tập, Tình yêu):
+
+1. Chép `js/data/linh-vuc/lam-viec.js` thành file mới, ví dụ `hoc-tap.js`, rồi sửa `id`, `name`, `title`, `intro`, `ethics`.
+2. Trong `ke`, chỉ liệt kê những kế thật sự hay gặp ở lĩnh vực đó (khoảng 8–15), theo thứ tự nên học. Mỗi kế có `how` (biểu hiện), `signs` (dấu hiệu), `respond` (cách ứng xử).
+3. Trong `scenarios`, id phải không trùng với tình huống nào khác. Đáp án (`answers`, `partial`) phải nằm trong danh sách `ke` của lĩnh vực.
+4. Chép thư mục `lam-viec/` thành thư mục mới cùng tên với `id`, sửa `data-lv`, tiêu đề, mô tả và dòng `<script>` trỏ tới file dữ liệu mới.
+5. Thêm dòng `<script>` của file dữ liệu mới vào `index.html` và `hoc/index.html`.
+
+Lĩnh vực mới sẽ tự hiện trên trang giới thiệu, trong tab Luyện tập (mục "Theo lĩnh vực") và ở phần "Gặp trong đời sống" của từng kế.
 
 **Sửa một kế:** mở `js/data/cac-ke.js`, tìm theo `id` (số thứ tự trong 36 kế). Trường `lens` là mã lăng kính: `l1` Nhận thức, `l2` Thời cơ và nguồn lực, `l3` Vị trí, `l4` Bên thứ ba, `l5` Tâm lý và động cơ, `l6` Trọng tâm và cấu trúc.
 

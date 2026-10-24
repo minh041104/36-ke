@@ -133,6 +133,10 @@ button.mkbtn:hover{background:var(--jade-soft)}
 .setbtn{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:7px 14px;cursor:pointer;font-weight:500;font-size:.92rem}
 .setbtn[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
 .setbtn .cnt{opacity:.65;font-variant-numeric:tabular-nums}
+.setsep{align-self:center;margin:0 4px 0 10px;font-size:.8rem;color:var(--muted);white-space:nowrap}
+.lvtabs{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 6px}
+.lvmore{margin:12px 0 0;font-size:.9rem}
+.lvmore a{color:var(--seal);text-underline-offset:3px}
 .ogroup{font-size:.85rem;font-weight:600;color:var(--lc);margin:14px 0 8px}
 /* UI refresh */
 .tab{display:inline-flex;align-items:baseline;gap:6px}

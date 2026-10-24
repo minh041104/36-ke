@@ -48,3 +48,10 @@ function renderTry(pick){
 renderTry(null);
 
 if (canDonate) document.getElementById("ung-ho").hidden = false;
+
+/* Các lĩnh vực đã có */
+const LVS = window.LV || [];
+if (LVS.length) {
+  document.getElementById("lvcards").innerHTML = LVS.map(d => '<a class="lvcard" href="' + d.id + '/"><b>' + esc(d.name) + '</b><span>' + d.ke.length + ' kế, ' + d.scenarios.length + ' tình huống</span></a>').join("");
+  document.getElementById("linh-vuc").hidden = false;
+}
