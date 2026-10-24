@@ -87,7 +87,7 @@ Nội dung và code được tách riêng: muốn sửa hay thêm nội dung, b�
 4. Chép thư mục `lam-viec/` thành thư mục mới cùng tên với `id`, sửa `data-lv`, tiêu đề, mô tả và dòng `<script>` trỏ tới file dữ liệu mới.
 5. Thêm dòng `<script>` của file dữ liệu mới vào `index.html` và `hoc/index.html`.
 
-Lĩnh vực mới sẽ tự hiện trên trang giới thiệu, trong tab Luyện tập (mục "Theo lĩnh vực") và ở phần "Gặp trong đời sống" của từng kế.
+Lĩnh vực mới sẽ tự hiện trên trang giới thiệu, trong tab Lĩnh vực của trang học và ở phần "Gặp trong đời sống" của từng kế.
 
 **Sửa một kế:** mở `js/data/cac-ke.js`, tìm theo `id` (số thứ tự trong 36 kế). Trường `lens` là mã lăng kính: `l1` Nhận thức, `l2` Thời cơ và nguồn lực, `l3` Vị trí, `l4` Bên thứ ba, `l5` Tâm lý và động cơ, `l6` Trọng tâm và cấu trúc.
 

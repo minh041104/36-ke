@@ -80,9 +80,9 @@ function makeCoach(container, firstPrompt, followRule){
 }
 
 /* ---------- Điều hướng ---------- */
-const NAMES = ["found","learn","practice"];
-const tabs = {found:document.getElementById("tab-found"), learn:document.getElementById("tab-learn"), practice:document.getElementById("tab-practice")};
-const views = {found:document.getElementById("view-found"), learn:document.getElementById("view-learn"), practice:document.getElementById("view-practice")};
+const NAMES = ["found","learn","practice","domain"];
+const tabs = Object.fromEntries(NAMES.map(n => [n, document.getElementById("tab-" + n)]));
+const views = Object.fromEntries(NAMES.map(n => [n, document.getElementById("view-" + n)]));
 let active = "found";
 function show(name, scroll){
   active = name;
@@ -94,14 +94,20 @@ NAMES.forEach(n => tabs[n].onclick = () => show(n, true));
 function rerenderCurrent(){
   if (active === "found") { renderFList(); renderLesson(); }
   else if (active === "learn") { renderList(); renderKe(); }
-  else renderPractice();
+  else if (active === "practice") {
+    pTarget = "pview";
+    if (SETS.find(x => x.id === setId).domain) { setId = "nhanthuc"; si = 0; pickFor = null; }
+    renderPractice();
+  }
+  else renderDomain();
 }
 function toTopOf(el){ window.scrollTo({top: Math.max(0, el.getBoundingClientRect().top + window.scrollY - 80)}); }
 
 const INTROS = {
   found:{h:"Mười bài nền tảng", p:"Nên đọc mười bài này trước khi vào các kế. Chúng giải thích những khái niệm mà phần sau dùng liên tục như hư thực, chính kỳ và thế. Mỗi bài có nguyên văn chữ Hán, phần giải thích, một câu hỏi và một bài tự viết ngắn."},
   learn:{h:"36 kế", p:"Mình chia 36 kế thành sáu nhóm, gọi là lăng kính, và xếp theo thứ tự nên học. Mỗi kế có điển tích, phần phân tích, và một kế hay bị nhầm với nó để bạn so sánh."},
-  practice:{h:"Đoán kế qua tình huống", p:"Tình huống không ghi tên kế. Trước khi chọn, hỏi xem người ta đang tác động vào đâu: cách bạn nhìn sự việc, vị trí, một bên thứ ba, thời điểm, tâm lý, hay chỗ dựa chính của đối phương."}
+  practice:{h:"Đoán kế qua tình huống", p:"Tình huống không ghi tên kế. Trước khi chọn, hỏi xem người ta đang tác động vào đâu: cách bạn nhìn sự việc, vị trí, một bên thứ ba, thời điểm, tâm lý, hay chỗ dựa chính của đối phương."},
+  domain:{h:"Theo lĩnh vực", p:"Chọn một lĩnh vực để xem những kế hay gặp ở đó, cách nhận ra và cách ứng xử, rồi luyện với tình huống của riêng lĩnh vực ấy."}
 };
 function renderIntro(){
   const i = INTROS[active];
@@ -111,10 +117,13 @@ function renderIntro(){
 function renderProgress(){
   const f = F.filter(x => state.fdone[x.id]).length;
   const u = K.filter(k => state.understood[k.id]).length;
-  const q = ALL_S.filter(s => state.quiz[s.id] === "correct").length;
+  const q = S.filter(s => state.quiz[s.id] === "correct").length;
+  const ds = ALL_S.slice(S.length), dq = ds.filter(s => state.quiz[s.id] === "correct").length;
   document.getElementById("tc-found").textContent = f + "/" + F.length;
   document.getElementById("tc-learn").textContent = u + "/" + K.length;
-  document.getElementById("tc-practice").textContent = q + "/" + ALL_S.length;
+  document.getElementById("tc-practice").textContent = q + "/" + S.length;
+  document.getElementById("tc-domain").textContent = ds.length ? dq + "/" + ds.length : "";
+  tabs.domain.hidden = !DOMAINS.length;
 }
 
 /* ---------- Nền tảng ---------- */
@@ -333,7 +342,7 @@ function renderKe(stamp){
         '<div><dt>Biểu hiện</dt><dd>' + esc(u.x.how) + '</dd></div>' +
         '<div><dt>Dấu hiệu</dt><dd>' + esc(u.x.signs) + '</dd></div>' +
         '<div><dt>Cách ứng xử</dt><dd>' + esc(u.x.respond) + '</dd></div></dl>' +
-        '<p class="lvmore"><a href="../' + u.d.id + '/">Các kế khác hay gặp ở lĩnh vực ' + esc(u.d.name) + '</a> · <a href="#luyen-' + u.d.id + '">Luyện ' + u.d.scenarios.length + ' tình huống</a></p>';
+        '<p class="lvmore"><a href="#linh-vuc-' + u.d.id + '">Các kế khác hay gặp ở lĩnh vực ' + esc(u.d.name) + '</a> · <a href="#luyen-' + u.d.id + '">Luyện ' + u.d.scenarios.length + ' tình huống</a></p>';
     };
     v.querySelectorAll(".lvtabs .setbtn").forEach(b => b.onclick = () => showLv(+b.dataset.lv));
     showLv(0);
@@ -380,6 +389,8 @@ const SETS = [
 /* Mỗi lĩnh vực là một bộ riêng: tình huống và lựa chọn lấy từ file lĩnh vực */
 DOMAINS.forEach(d => SETS.push({id:"lv-" + d.id, name:d.name, domain:d}));
 let setId = "nhanthuc", si = 0, pickLens = null, pickFor = null;
+/* Phần luyện vẽ vào tab Luyện tập (pview) hoặc vào tab Lĩnh vực (dpractice); khung còn lại được xóa để không trùng id */
+let pTarget = "pview";
 function setScen(id){
   const st = SETS.find(x => x.id === id);
   if (st.domain) return st.domain.scenarios;
@@ -403,7 +414,9 @@ function renderPractice(){
   const res = state.quiz[s.id];
   const saved = state.reasons[s.id] && state.reasons[s.id].pick;
   if (pickFor !== s.id) { pickFor = s.id; pickLens = (res && saved) ? byId[saved].lens : null; }
-  const p = document.getElementById("pview");
+  const p = document.getElementById(pTarget);
+  const otherBox = document.getElementById(pTarget === "pview" ? "dpractice" : "pview");
+  if (otherBox) otherBox.innerHTML = "";
   const correctN = list.filter(x => state.quiz[x.id] === "correct").length;
   const doneN = list.filter(x => state.quiz[x.id]).length;
   const opts = setOpts(setId);
@@ -432,7 +445,7 @@ function renderPractice(){
     ? '<div class="segbar" role="group" aria-label="Chọn tình huống">' + list.map((x,i) => '<button class="seg ' + (state.quiz[x.id]||"") + '" data-i="' + i + '" aria-label="Tình huống ' + (i+1) + '"' + (i===si ? ' aria-current="true"' : '') + '></button>').join("") + '</div>'
     : '<div class="dots">' + list.map((x,i) => '<button class="dot ' + (state.quiz[x.id]||"") + '" data-i="' + i + '" aria-label="Tình huống ' + (i+1) + '"' + (i===si ? ' aria-current="true"' : '') + '>' + (i+1) + '</button>').join("") + '</div>';
   p.innerHTML =
-    '<div class="sets" role="group" aria-label="Bộ tình huống">' + SETS.map((x, i) => { const l = setScen(x.id); const c = l.filter(y => state.quiz[y.id] === "correct").length; return (x.domain && !SETS[i-1].domain ? '<span class="setsep">Theo lĩnh vực</span>' : '') + '<button class="setbtn" data-s="' + x.id + '" aria-pressed="' + (x.id === setId) + '">' + esc(x.name) + ' <span class="cnt">' + c + '/' + l.length + '</span></button>'; }).join("") + '</div>' +
+    (pTarget === "pview" ? '<div class="sets" role="group" aria-label="Bộ tình huống">' + SETS.filter(x => !x.domain).map(x => { const l = setScen(x.id); const c = l.filter(y => state.quiz[y.id] === "correct").length; return '<button class="setbtn" data-s="' + x.id + '" aria-pressed="' + (x.id === setId) + '">' + esc(x.name) + ' <span class="cnt">' + c + '/' + l.length + '</span></button>'; }).join("") + '</div>' : '') +
     '<div class="pnav"><div class="pstep"><button class="btn sq" id="pprev" aria-label="Tình huống trước"' + (si === 0 ? ' disabled' : '') + '>‹</button><span class="pcount">Tình huống ' + (si+1) + ' trên ' + list.length + '</span><button class="btn sq" id="pnext" aria-label="Tình huống tiếp"' + (si === list.length-1 ? ' disabled' : '') + '>›</button></div>' +
     (res && firstUn >= 0 && firstUn !== si ? '<button class="linkbtn small" id="pjump">Tới câu chưa làm</button>' : '') +
     '<span class="score">' + (doneN ? "Đúng " + correctN + " trên " + doneN + " câu đã làm" : "Chưa làm câu nào trong bộ này") + '</span>' + nav + '</div>' +
@@ -496,7 +509,7 @@ function reveal(pick, focus){
     '</div><div class="coach" id="pcoach" aria-live="polite"></div></div>';
   if (focus) r.querySelector(".verdict").focus();
   document.getElementById("seeKe").onclick = () => { current = s.answers[0]; show("learn", true); };
-  document.getElementById("next").onclick = () => { si = (si + 1) % total; renderPractice(); toTopOf(views.practice); };
+  document.getElementById("next").onclick = () => { si = (si + 1) % total; renderPractice(); toTopOf(document.getElementById(pTarget)); };
   document.getElementById("retry").onclick = () => { delete state.quiz[s.id]; if (state.reasons[s.id]) delete state.reasons[s.id].pick; save(); pickFor = null; renderProgress(); renderPractice(); };
   const aw = document.getElementById("askWhy");
   if (aw) aw.onclick = () => {
@@ -513,6 +526,51 @@ function reveal(pick, focus){
   };
 }
 
+/* ---------- Lĩnh vực ---------- */
+let dcur = null, dsub = "ke";
+function renderDomain(){
+  const v = document.getElementById("dview");
+  const d = DOMAINS.find(x => x.id === dcur);
+  if (!d) {
+    v.innerHTML = '<div class="lvcards">' + DOMAINS.map(x => {
+      const q = x.scenarios.filter(s => state.quiz[s.id] === "correct").length;
+      return '<button class="lvcard" data-d="' + x.id + '"><b>' + esc(x.name) + '</b><span>' + x.ke.length + ' kế, ' + x.scenarios.length + ' tình huống' + (q ? ', đúng ' + q : '') + '</span></button>';
+    }).join("") + '</div>';
+    v.querySelectorAll("[data-d]").forEach(b => b.onclick = () => { dcur = b.dataset.d; dsub = "ke"; renderDomain(); toTopOf(views.domain); });
+    return;
+  }
+  const q = d.scenarios.filter(s => state.quiz[s.id] === "correct").length;
+  v.innerHTML = '<p class="stepback"><button class="linkbtn small" id="dback">← Các lĩnh vực</button></p>' +
+    '<h2 class="dtitle">' + esc(d.title) + '</h2><p class="dintro">' + esc(d.intro) + '</p>' +
+    '<div class="sets" role="group" aria-label="Phần">' +
+      '<button class="setbtn" data-sub="ke" aria-pressed="' + (dsub === "ke") + '">Các kế <span class="cnt">' + d.ke.length + '</span></button>' +
+      '<button class="setbtn" data-sub="luyen" aria-pressed="' + (dsub === "luyen") + '">Luyện tình huống <span class="cnt">' + q + '/' + d.scenarios.length + '</span></button>' +
+    '</div><div id="dbody"></div>';
+  document.getElementById("dback").onclick = () => { dcur = null; renderDomain(); };
+  v.querySelectorAll("[data-sub]").forEach(b => b.onclick = () => { dsub = b.dataset.sub; renderDomain(); });
+  const body = document.getElementById("dbody");
+  if (dsub === "luyen") {
+    body.innerHTML = '<div class="practice" id="dpractice"></div>';
+    if (setId !== "lv-" + d.id) { setId = "lv-" + d.id; si = 0; pickFor = null; }
+    pTarget = "dpractice";
+    renderPractice();
+    return;
+  }
+  body.innerHTML = '<ol class="lvlist">' + d.ke.map((x, i) => {
+    const k = byId[x.id];
+    return '<li class="lvke"><div class="lvhead"><span class="lvnum">' + (i + 1) + '</span><div><h3>' + esc(k.name) + (state.understood[k.id] ? ' <span class="kdone" title="Đã hiểu">✓</span>' : '') + '</h3>' +
+      '<p class="kmeta"><span class="ltag ' + k.lens + '">' + esc(lensName(k.lens)) + '</span><span lang="zh" class="lvhan">' + esc(k.han) + '</span></p></div></div>' +
+      '<p class="lvhow">' + esc(x.how) + '</p>' +
+      '<details><summary>Dấu hiệu và cách ứng xử</summary><dl class="anal">' +
+        '<div><dt>Dấu hiệu</dt><dd>' + esc(x.signs) + '</dd></div>' +
+        '<div><dt>Cách ứng xử</dt><dd>' + esc(x.respond) + '</dd></div></dl>' +
+        '<p class="lvlink"><button class="linkbtn small" data-k="' + k.id + '">Đọc điển tích và phân tích đầy đủ</button></p></details></li>';
+  }).join("") + '</ol>' + (d.ethics ? '<p class="lvethics">' + esc(d.ethics) + '</p>' : '') +
+    '<p class="row"><button class="btn primary" id="dgo">Luyện ' + d.scenarios.length + ' tình huống</button></p>';
+  body.querySelectorAll("[data-k]").forEach(b => b.onclick = () => { current = +b.dataset.k; show("learn", true); });
+  document.getElementById("dgo").onclick = () => { dsub = "luyen"; renderDomain(); toTopOf(views.domain); };
+}
+
 /* ---------- Khác ---------- */
 document.getElementById("reset").onclick = () => {
   if (!confirm("Xóa toàn bộ ghi chú, bài làm và tiến độ trên trình duyệt này?")) return;
@@ -525,8 +583,10 @@ function applyHash(){
   if (h) history.replaceState(null, "", location.pathname + location.search);
   let m = h.match(/^ke-(\d+)$/);
   if (m && byId[+m[1]]) { current = +m[1]; show("learn", true); return true; }
-  m = h.match(/^luyen-(.+)$/);
-  const st = m && SETS.find(x => x.id === m[1] || x.id === "lv-" + m[1]);
+  m = h.match(/^(luyen|linh-vuc)-(.+)$/);
+  const d = m && DOMAINS.find(x => x.id === m[2]);
+  if (d) { dcur = d.id; dsub = m[1] === "luyen" ? "luyen" : "ke"; show("domain", true); return true; }
+  const st = m && m[1] === "luyen" && SETS.find(x => x.id === m[2] && !x.domain);
   if (st) { setId = st.id; si = 0; pickFor = null; show("practice", true); return true; }
   return false;
 }
