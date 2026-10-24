@@ -55,7 +55,7 @@ async function copyPrompt(container, prompt, followRule){
 /* Điền thông tin nhận ủng hộ. Mục nào để trống thì không hiện; trống hết thì ẩn mọi nút ủng hộ. */
 const DONATE = {
   bank: {id:"", account:"", name:""}, // id: mã ngân hàng theo VietQR, ví dụ "MB", "VCB", "TCB", "ACB"; name: tên chủ tài khoản, viết hoa không dấu
-  qrImage: "",                        // Hoặc đường dẫn tới ảnh QR có sẵn, ví dụ "qr.png". Chỉ dùng khi không điền bank.
+  qrImage: "qr-momo.jpg",      // Hoặc đường dẫn tới ảnh QR có sẵn, ví dụ "qr.png". Chỉ dùng khi không điền bank.
   note: "Ung ho 36 ke",               // Nội dung chuyển khoản điền sẵn trong mã QR
   crypto: [
     {coin:"USDT", network:"TRC20 (Tron)", address:"TYDCHoFu4W5KZyaNPjnCcRqinunsF3zK3B"},
@@ -80,7 +80,7 @@ function openDonate(){
     let h = '<div class="dhead"><h2 id="donate-h">Ủng hộ tác giả</h2><button class="btn sq" data-close aria-label="Đóng">×</button></div>' +
       '<p class="dlead">Trang này miễn phí và không có quảng cáo. Nếu nó giúp ích cho bạn, một ly cà phê sẽ giúp mình có thêm thời gian viết thêm tình huống và bài học.</p>';
     if (qrSrc) {
-      h += '<section class="dsec"><h3>Chuyển khoản ngân hàng</h3><img class="qr" src="' + esc(qrSrc) + '" alt="Mã QR chuyển khoản" width="260" height="260">' +
+      h += '<section class="dsec"><h3>Chuyển khoản qua mã QR</h3><img class="qr" src="' + esc(qrSrc) + '" alt="Mã QR chuyển khoản">' +
         '<p class="dhint">Mở app ngân hàng hoặc MoMo, chọn quét QR. Nếu đang dùng điện thoại, nhấn giữ ảnh để lưu rồi chọn quét QR từ ảnh.</p>' +
         (bank ? copyRow("Ngân hàng", bank.id) + copyRow("Số tài khoản", bank.account) + (bank.name ? copyRow("Chủ tài khoản", bank.name) : "") : "") + '</section>';
     }
