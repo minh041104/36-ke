@@ -1,6 +1,7 @@
 /* Lĩnh vực: Mua sắm và lừa đảo. Cấu trúc giống lam-viec.js. */
 (window.LV = window.LV || []).push({
   id:"mua-sam", name:"Mua sắm và lừa đảo", title:"Những kế hay gặp khi mua sắm và trên mạng",
+  desc:"Mười chiêu lừa hay gặp khi mua sắm và trên mạng, như việc nhẹ lương cao, cuộc gọi báo người thân cấp cứu, giao dịch ngoài sàn, kèm cách nhận ra.",
   intro:"Phần lớn chiêu lừa qua mạng dùng lại vài cơ chế cũ: cho bạn thắng nhỏ trước, làm mình trông đáng tin hơn thực tế, hay khuấy cho bạn rối để không kịp nghĩ. Kịch bản đổi liên tục, nhưng nhận ra cơ chế thì kịch bản mới bạn vẫn nhận ra.",
   ethics:"Nếu đã chuyển tiền cho kẻ lừa đảo, gọi ngay cho ngân hàng để đề nghị phong tỏa giao dịch, rồi trình báo công an nơi gần nhất. Báo càng sớm càng có cơ hội lấy lại tiền.",
   ke:[

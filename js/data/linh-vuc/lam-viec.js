@@ -1,6 +1,7 @@
-/* Lĩnh vực: Làm việc. Mỗi lĩnh vực: id, name, title, intro, ethics, ke (kế liên quan, theo thứ tự nên học), scenarios. */
+/* Lĩnh vực: Làm việc. Mỗi lĩnh vực: id, name, title, desc (mô tả cho Google), intro, ethics, ke (kế liên quan, theo thứ tự nên học), scenarios. */
 (window.LV = window.LV || []).push({
   id:"lam-viec", name:"Làm việc", title:"Những kế hay gặp ở chỗ làm",
+  desc:"Mười kế hay gặp nhất ở chỗ làm: bị lấy công, bị mắng thay, được hứa rồi bị bỏ lại. Mỗi kế kèm dấu hiệu, cách ứng xử và tình huống để luyện.",
   intro:"Đa số chuyện ở chỗ làm là hiểu lầm hoặc làm ẩu, không ai tính toán gì. Số còn lại thì đáng nhận ra sớm: bị lấy công, bị mắng thay người khác, được hứa rồi bị bỏ lại giữa chừng. Đây là mười kế hay gặp nhất, mỗi kế kèm dấu hiệu và cách ứng xử.",
   ethics:"Phần này viết để bạn nhận ra và tự bảo vệ. Ở chỗ làm, bạn còn gặp lại những người đó nhiều năm, nên dùng kế với đồng nghiệp thường phải trả giá bằng lòng tin.",
   ke:[

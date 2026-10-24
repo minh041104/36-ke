@@ -1,6 +1,7 @@
 /* Lĩnh vực: Học tập. Cấu trúc giống lam-viec.js. */
 (window.LV = window.LV || []).push({
   id:"hoc-tap", name:"Học tập", title:"Những kế hay gặp ở trường lớp",
+  desc:"Mười kế hay gặp khi làm bài nhóm, thi cử và tranh học bổng, kèm dấu hiệu, cách ứng xử và tình huống để luyện.",
   intro:"Trường lớp là nơi nhiều người lần đầu gặp chuyện bị lấy công, bị mách lẻo hay bị cô lập. Mười kế dưới đây hay xuất hiện khi làm bài nhóm, thi cử và tranh học bổng. Có hai kế bạn có thể tự dùng cho mình: biết bỏ chỗ nhỏ khi ôn thi, và biết rút khi đã chọn sai.",
   ethics:"Phần này để bạn nhận ra và tự bảo vệ. Gian lận hay hạ người khác để giành điểm có thể bị kỷ luật, và trong một lớp vài chục người, tiếng xấu đi theo bạn rất lâu.",
   ke:[

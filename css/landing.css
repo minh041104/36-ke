@@ -15,7 +15,7 @@
 .resume{margin:6px 0 0;font-size:.9rem;color:var(--good)}
 
 .grid36{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;max-width:380px;margin-left:auto}
-.grid36 .t{aspect-ratio:1;display:grid;place-items:center;border-radius:6px;font-family:var(--brush);font-size:clamp(1.2rem,2.6vw,1.7rem);line-height:1;color:var(--lc);background:color-mix(in srgb,var(--lc) 13%,transparent);border:1px solid color-mix(in srgb,var(--lc) 30%,transparent)}
+.grid36 .t{text-decoration:none !important;aspect-ratio:1;display:grid;place-items:center;border-radius:6px;font-family:var(--brush);font-size:clamp(1.2rem,2.6vw,1.7rem);line-height:1;color:var(--lc);background:color-mix(in srgb,var(--lc) 13%,transparent);border:1px solid color-mix(in srgb,var(--lc) 30%,transparent)}
 .grid36 .t:nth-child(7n+3){transform:rotate(-3deg)}
 .grid36 .t:nth-child(5n+1){background:var(--lc);color:var(--paper);border-color:var(--lc)}
 
@@ -37,9 +37,42 @@
 
 
 /* Trang lĩnh vực */
-.lvhero{padding-top:64px;max-width:820px;margin-left:0}
+.lvhero{padding-top:64px}
+.lvhero>*{max-width:820px}
 .lvhero h1{font-family:var(--serif);font-weight:600;font-size:clamp(1.9rem,4.2vw,3rem);line-height:1.1;letter-spacing:-.015em;margin:0 0 16px;text-wrap:balance}
 .lvhero .hero-p{max-width:60ch}
+
+.lvke h2{font-family:var(--serif);font-weight:600;font-size:1.25rem;line-height:1.25;margin:2px 0 6px}
+.lvke h2 a,.kgroup a,.klinks a{color:inherit !important;text-decoration:none}
+.lvke h2 a:hover{color:var(--seal) !important}
+
+/* Trang tĩnh: từng kế, bài nền tảng, danh sách */
+.crumbs{font-size:.85rem;color:var(--muted);margin:0 0 22px}
+.crumbs a{color:var(--muted) !important}
+.kpage{padding-top:36px}
+.kpage>*,.kindex>*{max-width:860px}
+.kpage .khead h1,.kpage.lesson h1,.kindex h1{font-family:var(--serif);font-weight:600;font-size:clamp(1.9rem,4vw,2.7rem);line-height:1.1;margin:0 0 8px}
+.kpage .sect h2{font-family:var(--serif);font-weight:600;font-size:1.3rem;margin:0 0 12px}
+.kpage .contrast h3{margin:0 0 8px;font-size:.92rem;font-weight:600}
+.kpage .contrast .mm h3{color:var(--muted)} .kpage .contrast .bc h3{color:var(--jade)}
+.kpage .confuse strong a{color:var(--seal)}
+.kuse+.kuse{margin-top:22px}
+.kuse h3{font-family:var(--serif);font-weight:600;font-size:1.08rem;margin:0 0 6px}
+.kcta{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px 24px;background:var(--jade-soft);border:1px solid color-mix(in srgb,var(--jade) 35%,transparent);border-radius:12px;padding:18px 22px;margin:0 0 30px}
+.kcta p{margin:0;max-width:52ch;font-family:var(--serif);line-height:1.6}
+a.navbtn{text-decoration:none;color:inherit !important}
+.kindex{padding-top:36px}
+.kindex .hero-p{margin-bottom:28px}
+.kgroup{margin-top:34px}
+.kgroup h2{font-family:var(--serif);font-weight:600;font-size:1.35rem;margin:0}
+.klinks{list-style:none;margin:10px 0 0;padding:0;border-top:1px solid var(--line)}
+.klinks li{border-bottom:1px solid var(--line)}
+.klinks a{display:grid;grid-template-columns:34px minmax(0,auto) auto 1fr;gap:4px 14px;align-items:baseline;padding:12px 6px}
+.klinks a:hover{background:var(--surface)}
+.klinks .kn{font-weight:600}
+.klinks .kl{font-family:var(--zh);color:var(--muted);font-size:.9rem;letter-spacing:.06em}
+.klinks .kt{color:var(--muted);font-size:.92rem;font-family:var(--serif);font-style:italic}
+@media (max-width:640px){.klinks a{grid-template-columns:30px 1fr}.klinks .kl,.klinks .kt{grid-column:2}}
 
 .support{padding-top:48px;margin-bottom:0;color:var(--muted)}
 .support .linkbtn{font-size:1rem}
@@ -59,3 +92,6 @@
   .cta .btn{flex:1;text-align:center}
   .grid36{max-width:300px}
 }
+.grid36 a.t{transition:transform .12s}
+.grid36 a.t:hover{transform:scale(1.08) rotate(0deg);z-index:1}
+.sub{color:var(--muted);margin:-8px 0 20px;max-width:62ch}

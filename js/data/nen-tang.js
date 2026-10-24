@@ -98,7 +98,7 @@ const F = [
    ],
    body:[
      "Tôn Tử phân biệt hình và thế. Hình là thực lực tĩnh: quân số, vũ khí, tiền bạc. Thế là sức mạnh sinh ra từ vị trí, thời điểm và quan hệ. Hòn đá tròn tự nó không đáng sợ; đặt trên đỉnh núi cao thì không gì cản nổi.",
-     "Kế chỉ chạy trong thế phù hợp. Cách sắp xếp sáu nhóm kế cũng phản ánh điều này: đi từ khi mình có ưu thế, với Thắng chiến kế, đến khi thất thế, với Bại chiến kế. Câu hỏi đầu tiên không phải dùng kế nào, mà là mình đang ở thế nào.",
+     "Kế chỉ chạy trong thế phù hợp. Cách sắp xếp sáu nhóm kế cũng phản ánh điều này: đi từ khi mình có ưu thế, với Thắng chiến kế, đến khi thất thế, với Bại chiến kế. Câu hỏi đầu tiên nên là: mình đang ở thế nào? Chọn kế nào là chuyện sau.",
      "Thế bắt đầu từ phòng thủ. Trước hết làm cho mình không thể bị đánh bại, rồi chờ đối phương để lộ chỗ có thể bị đánh bại. Không thua nằm trong tay mình; thắng thì còn phụ thuộc vào đối phương."
    ],
    example:"Ở trận Bạch Đằng năm 1288, thủy triều, lòng sông và bãi cọc tạo thành thế; trận đánh chỉ là thời điểm thế ấy được kích hoạt. Thời nay, cùng một lời đề nghị tăng lương sẽ có sức nặng hoàn toàn khác khi bạn đã có một lời mời làm việc khác trong tay. Lời nói không đổi, thế đã đổi.",
@@ -204,7 +204,7 @@ const F = [
      "Mỗi kế dựa trên vài giả định về đối phương: họ sẽ tin điều này, sẽ phản ứng thế kia, sẽ không kiểm tra điều nọ. Phá kế là làm cho những giả định ấy sai. Vì vậy câu hỏi “điểm gãy” trong khung 5 câu hỏi cũng chính là câu hỏi “phá kế này thế nào”.",
      "Năm thói quen phòng thủ phá được phần lớn các kế. Kiểm chứng rẻ: trước khi phản ứng với một tín hiệu, tìm cách kiểm tra nó với chi phí thấp; Thụ thượng khai hoa và Không thành kế đều sụp trước một phép thử nhỏ. Giữ lực dự bị: không dồn hết theo tín hiệu ồn ào nhất, như cách Chu Á Phu phá Dương đông kích tây. Tách thái độ khỏi cam kết: thân thiện đến đâu cũng giữ nguyên các lớp bảo vệ, phá được Tiếu lý tàng đao.",
      "Không khóa kết luận: luôn hỏi “nếu lần này khác thì sao”, phá được Man thiên quá hải và Vô trung sinh hữu. Nhìn vào nguồn lực thay vì dáng vẻ: đánh giá người khác theo những gì họ nắm trong tay, phá được Giả si bất điên.",
-     "Phòng thủ tốt nhất không phải đoán trúng từng kế, mà là xây thế khiến kế của đối phương khó thành: có lựa chọn thay thế, có nguồn thông tin độc lập, có người dám nói ngược với mình. Đó là tinh thần của câu “trông vào việc mình đã có sẵn cách đối phó”.",
+     "Đoán trúng từng kế là việc khó và mệt. Cách phòng thủ bền hơn là xây thế khiến kế của đối phương khó thành: có lựa chọn thay thế, có nguồn thông tin độc lập, có người dám nói ngược với mình. Đó là tinh thần của câu “trông vào việc mình đã có sẵn cách đối phó”.",
      "Nhưng đừng rơi vào đa nghi. Nghi ngờ mọi thứ khiến bạn tê liệt, và chính sự đa nghi cũng là điểm yếu để người khác khai thác: Tư Mã Ý trong Tam quốc diễn nghĩa trúng Không thành kế chính vì quá đa nghi. Mục tiêu là kiểm chứng có chọn lọc, không phải nghi ngờ tất cả."
    ],
    example:"Một công ty nhận đơn hàng lớn bất thường từ một khách hàng mới, kèm lời khen nồng nhiệt và đề nghị giao hàng trước, thanh toán sau. Thay vì từ chối hay đồng ý ngay, họ kiểm chứng rẻ: tra thông tin doanh nghiệp, đề nghị đặt cọc một phần, giao một lô nhỏ trước. Khách hàng thật không ngại những bước này; kẻ lừa đảo thường biến mất.",

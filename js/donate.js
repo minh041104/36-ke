@@ -11,11 +11,9 @@ const DONATE = {
   ]
 };
 const bank = DONATE.bank.id && DONATE.bank.account ? DONATE.bank : null;
-/* Đường dẫn ảnh QR tính từ thư mục gốc của trang, nên dùng được ở cả landing và trang học */
-const siteRoot = new URL("../", document.currentScript.src);
 const qrSrc = bank
   ? "https://img.vietqr.io/image/" + encodeURIComponent(bank.id) + "-" + encodeURIComponent(bank.account) + "-compact2.png?addInfo=" + encodeURIComponent(DONATE.note) + "&accountName=" + encodeURIComponent(bank.name)
-  : DONATE.qrImage ? new URL(DONATE.qrImage, siteRoot).href : "";
+  : DONATE.qrImage ? new URL(DONATE.qrImage, SITE_ROOT).href : "";
 const canDonate = !!(qrSrc || DONATE.crypto.length);
 function donateHTML(text){ return canDonate ? '<p class="donate-cta"><button class="linkbtn donate-open">' + esc(text) + '</button></p>' : ''; }
 function copyRow(label, value){
@@ -63,6 +61,7 @@ function openDonate(){
     });
   }
   d.showModal();
+  track("mo-ung-ho");
 }
 document.addEventListener("click", e => { if (e.target.closest(".donate-open")) openDonate(); });
 document.querySelectorAll(".donate-foot").forEach(b => b.hidden = !canDonate);

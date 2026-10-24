@@ -1,0 +1,12 @@
+{
+  "name": "36-ke",
+  "private": true,
+  "description": "Học 36 kế qua sử sách và chuyện thời nay",
+  "scripts": {
+    "build": "node tools/build.js",
+    "og": "node tools/og.js"
+  },
+  "devDependencies": {
+    "puppeteer-core": "23.11.1"
+  }
+}

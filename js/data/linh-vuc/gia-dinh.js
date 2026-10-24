@@ -1,6 +1,7 @@
 /* Lĩnh vực: Gia đình. Cấu trúc giống lam-viec.js. */
 (window.LV = window.LV || []).push({
   id:"gia-dinh", name:"Gia đình", title:"Những kế hay gặp trong chuyện nhà",
+  desc:"Mười kế hay gặp khi chia đất, góp tiền chăm bố mẹ hay sống chung, kèm dấu hiệu, cách ứng xử và tình huống để luyện.",
   intro:"Chuyện nhà khó nói vì người trong cuộc là người thân. Chia đất, góp tiền chăm bố mẹ, ai ở với ai: những chuyện này hay sinh ra cách ứng xử giống hệt các kế, dù nhiều khi không ai cố tình. Nhận ra cơ chế giúp bạn nói chuyện thẳng hơn, thay vì giận ngầm nhiều năm.",
   ethics:"Với người thân, giữ được quan hệ thường quan trọng hơn thắng một lần. Khi chuyện liên quan đến tài sản, nên có giấy tờ rõ ràng và hỏi người có chuyên môn như luật sư hay công chứng viên.",
   ke:[

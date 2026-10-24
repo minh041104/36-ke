@@ -37,11 +37,39 @@ const DONATE = {
 
 Khi mọi mục đều trống, nút ủng hộ được ẩn. Khi có ít nhất một mục, nút hiện ở chân trang, ở màn học xong phần nền tảng và ở màn đánh dấu hiểu đủ 36 kế; bấm vào sẽ mở khung có mã QR và địa chỉ ví kèm nút sao chép.
 
+## Tạo lại trang tĩnh sau khi sửa nội dung
+
+Trang của từng kế (`ke/`), bài nền tảng (`nen-tang/`), trang lĩnh vực, `sitemap.xml` và phần `<head>` của trang chủ, trang học đều được tạo từ dữ liệu trong `js/data/`. Sửa dữ liệu xong thì chạy:
+
+```bash
+node tools/build.js
+```
+
+Ảnh xem trước khi chia sẻ (`og/`) và icon (`icons/`) được vẽ bằng Chrome. Chỉ cần chạy lại khi đổi tên kế, tiêu đề hay thêm trang:
+
+```bash
+npm install
+node tools/og.js
+```
+
+## Đo lượng người dùng
+
+Trang gắn sẵn [GoatCounter](https://www.goatcounter.com) (miễn phí, không dùng cookie). Tạo tài khoản, rồi mở `js/common.js` và điền mã vào dòng `const GOATCOUNTER = "";`, ví dụ `"hoc36ke"` nếu trang thống kê của bạn là `hoc36ke.goatcounter.com`. Ngoài lượt xem trang, trang còn ghi các sự kiện: bắt đầu học, trả lời tình huống, câu hỏi hôm nay, đố bạn bè, mở khung ủng hộ, sao chép prompt cho Claude, sao lưu.
+
+## Google Search Console
+
+Để Google biết trang sớm hơn: vào [Search Console](https://search.google.com/search-console), thêm `https://minh041104.github.io/36-ke/`, xác minh bằng thẻ HTML, rồi gửi `sitemap.xml`.
+
 ## Cấu trúc thư mục
 
 ```
 36-ke/
-├── index.html              Trang giới thiệu (landing)
+├── index.html              Trang giới thiệu (landing), có câu hỏi mỗi ngày
+├── ke/, nen-tang/          Trang tĩnh của từng kế và từng bài nền tảng (tạo bằng tools/build.js)
+├── og/, icons/             Ảnh chia sẻ và icon (tạo bằng tools/og.js)
+├── tools/                  build.js (tạo trang), og.js (vẽ ảnh)
+├── sw.js, manifest.webmanifest   Dùng như ứng dụng, mở được khi mất mạng
+├── sitemap.xml, robots.txt, 404.html
 ├── hoc/index.html          Trang học
 ├── lam-viec/index.html     Trang lĩnh vực Làm việc
 ├── qr-momo.jpg             Ảnh QR nhận ủng hộ

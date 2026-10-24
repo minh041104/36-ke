@@ -31,6 +31,7 @@ function coach(container, prompt, followRule){ (sample ? makeCoach : copyPrompt)
 async function copyPrompt(container, prompt, followRule){
   const full = prompt + "\n\nSau đó, mỗi lần người học trả lời, hãy nhận xét ngắn gọn rồi đặt đúng một câu hỏi phản biện mới, tối đa 120 chữ. " + RULES + " " + (followRule || "Nếu họ đã cho thấy hiểu sâu bản chất, hãy xác nhận điều đó và không hỏi thêm.");
   const ok = await copyText(full);
+  track("claude-prompt");
   container.classList.add("show");
   container.innerHTML = '<p class="copied">' + (ok
       ? "Đã sao chép prompt. Mở Claude, dán vào khung chat rồi gửi. Claude sẽ nhận xét và hỏi lại, bạn cứ trả lời tiếp trong cuộc trò chuyện đó."
@@ -474,7 +475,7 @@ function choose(id){
   const verdict = s.answers.includes(id) ? "correct" : s.partial.includes(id) ? "partial" : "wrong";
   state.quiz[s.id] = verdict;
   state.reasons[s.id] = Object.assign(state.reasons[s.id] || {}, {pick:id, text:document.getElementById("reason").value});
-  save(); renderProgress();
+  save(); renderProgress(); track("tra-loi/" + setId);
   const dc = pTarget === "dpractice" && document.querySelector('[data-sub="luyen"] .cnt');
   if (dc) { const l = setScen(setId); dc.textContent = l.filter(x => state.quiz[x.id] === "correct").length + "/" + l.length; }
   const rl = document.getElementById("relens"); if (rl) rl.parentNode.remove();
@@ -507,9 +508,11 @@ function reveal(pick, focus){
       '<button class="btn" id="seeKe">Xem lại kế ' + esc(byId[s.answers[0]].name) + '</button>' +
       '<button class="btn" id="askWhy">' + claudeLabel(reasonText ? "Nhờ Claude nhận xét lý do của bạn" : "Nhờ Claude giải thích sâu hơn") + '</button>' +
       '<button class="btn" id="retry">Làm lại câu này</button>' +
+      '<button class="btn" id="shareQ">Đố bạn bè câu này</button>' +
       '<button class="btn primary" id="next">' + (si < total - 1 ? "Tình huống tiếp" : "Về tình huống đầu") + '</button>' +
     '</div><div class="coach" id="pcoach" aria-live="polite"></div></div>';
   if (focus) r.querySelector(".verdict").focus();
+  const sq = document.getElementById("shareQ"); sq.onclick = () => shareScenario(s, sq);
   document.getElementById("seeKe").onclick = () => { current = s.answers[0]; show("learn", true); };
   document.getElementById("next").onclick = () => { si = (si + 1) % total; renderPractice(); toTopOf(document.getElementById(pTarget)); };
   document.getElementById("retry").onclick = () => { delete state.quiz[s.id]; if (state.reasons[s.id]) delete state.reasons[s.id].pick; save(); pickFor = null; renderProgress(); renderPractice(); };
@@ -574,6 +577,27 @@ function renderDomain(){
 }
 
 /* ---------- Khác ---------- */
+/* Sao lưu: tải toàn bộ tiến độ và ghi chú về một file JSON; khôi phục: đọc lại file đó */
+document.getElementById("backup").onclick = () => {
+  const blob = new Blob([JSON.stringify({app:"hoc-36-ke", version:1, saved:new Date().toISOString(), state}, null, 1)], {type:"application/json"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob); a.download = "hoc-36-ke-sao-luu-" + new Date().toISOString().slice(0, 10) + ".json";
+  document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+  track("sao-luu");
+};
+const rf = document.getElementById("restore-file");
+document.getElementById("restore").onclick = () => rf.click();
+rf.onchange = async () => {
+  const f = rf.files[0]; rf.value = ""; if (!f) return;
+  try {
+    const data = JSON.parse(await f.text());
+    if (!data || data.app !== "hoc-36-ke" || typeof data.state !== "object") throw new Error("sai định dạng");
+    if (!confirm("Khôi phục sẽ thay toàn bộ tiến độ và ghi chú hiện tại bằng bản sao lưu ngày " + String(data.saved || "").slice(0, 10) + ". Tiếp tục?")) return;
+    state = Object.assign(blank(), data.state); save(); renderProgress(); rerenderCurrent();
+    alert("Đã khôi phục tiến độ.");
+  } catch(e) { alert("File này không phải bản sao lưu của trang Học 36 kế."); }
+};
+
 document.getElementById("reset").onclick = () => {
   if (!confirm("Xóa toàn bộ ghi chú, bài làm và tiến độ trên trình duyệt này?")) return;
   state = blank(); save(); renderProgress(); rerenderCurrent();
@@ -585,6 +609,19 @@ function applyHash(){
   if (h) history.replaceState(null, "", location.pathname + location.search);
   let m = h.match(/^ke-(\d+)$/);
   if (m && byId[+m[1]]) { current = +m[1]; show("learn", true); return true; }
+  m = h.match(/^bai-(\d+)$/);
+  if (m && fById[+m[1]]) { fcur = +m[1]; show("found", true); return true; }
+  m = h.match(/^th-(.+)$/);
+  if (m) {
+    const d = DOMAINS.find(x => x.scenarios.some(s => s.id === m[1]));
+    const core = S.find(s => s.id === m[1]);
+    if (d || core) {
+      setId = d ? "lv-" + d.id : (core.set || "nhanthuc");
+      si = setScen(setId).findIndex(s => s.id === m[1]); pickFor = null;
+      if (d) { dcur = d.id; dsub = "luyen"; show("domain", true); } else show("practice", true);
+      return true;
+    }
+  }
   m = h.match(/^(luyen|linh-vuc)-(.+)$/);
   const d = m && DOMAINS.find(x => x.id === m[2]);
   if (d) { dcur = d.id; dsub = m[1] === "luyen" ? "luyen" : "ke"; show("domain", true); return true; }

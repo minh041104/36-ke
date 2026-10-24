@@ -1,6 +1,7 @@
 /* Lĩnh vực: Tình yêu. Chỉ viết theo hướng nhận ra và tự bảo vệ. Cấu trúc giống lam-viec.js. */
 (window.LV = window.LV || []).push({
   id:"tinh-yeu", name:"Tình yêu", title:"Nhận ra thao túng trong chuyện tình cảm",
+  desc:"Mười kiểu thao túng hay gặp trong tình yêu, như nóng lạnh thất thường, làm bạn thấy có lỗi, tách bạn khỏi bạn bè, kèm cách nhận ra và tự bảo vệ.",
   intro:"Phần này giúp bạn nhận ra khi mình đang bị thao túng trong một mối quan hệ: bị làm cho thấy có lỗi, bị đối xử nóng lạnh thất thường, bị tách dần khỏi bạn bè. Những kiểu này thường đến từ từ nên rất khó thấy khi đang ở trong. Mọi phần ở đây chỉ viết theo hướng nhận ra và tự bảo vệ.",
   ethics:"Nếu bạn bị kiểm soát, đe dọa hay bị đánh, hãy kể với một người bạn tin tưởng và tìm hỗ trợ. Gọi 113 khi đang gặp nguy hiểm. Nếu bạn dưới 18 tuổi, có thể gọi Tổng đài quốc gia bảo vệ trẻ em 111, miễn phí.",
   ke:[

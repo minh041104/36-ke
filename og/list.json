@@ -1,0 +1,332 @@
+[
+ {
+  "name": "ke-man-thien-qua-hai",
+  "title": "Man thiên quá hải",
+  "sub": "Kế thứ 1 · Giấu trời mà vượt biển",
+  "han": "瞒天过海"
+ },
+ {
+  "name": "ke-vay-nguy-cuu-trieu",
+  "title": "Vây Ngụy cứu Triệu",
+  "sub": "Kế thứ 2 · Vây nước Ngụy để cứu nước Triệu",
+  "han": "围魏救赵"
+ },
+ {
+  "name": "ke-ta-dao-sat-nhan",
+  "title": "Tá đao sát nhân",
+  "sub": "Kế thứ 3 · Mượn dao giết người",
+  "han": "借刀杀人"
+ },
+ {
+  "name": "ke-di-dat-dai-lao",
+  "title": "Dĩ dật đãi lao",
+  "sub": "Kế thứ 4 · Lấy nhàn chờ mệt",
+  "han": "以逸待劳"
+ },
+ {
+  "name": "ke-san-hoa-da-kiep",
+  "title": "Sấn hỏa đả kiếp",
+  "sub": "Kế thứ 5 · Nhân lúc cháy nhà mà đi cướp",
+  "han": "趁火打劫"
+ },
+ {
+  "name": "ke-duong-dong-kich-tay",
+  "title": "Dương đông kích tây",
+  "sub": "Kế thứ 6 · Làm ồn phía đông, đánh phía tây",
+  "han": "声东击西"
+ },
+ {
+  "name": "ke-vo-trung-sinh-huu",
+  "title": "Vô trung sinh hữu",
+  "sub": "Kế thứ 7 · Từ không sinh ra có",
+  "han": "无中生有"
+ },
+ {
+  "name": "ke-am-do-tran-thuong",
+  "title": "Ám độ Trần Thương",
+  "sub": "Kế thứ 8 · Lén vượt qua Trần Thương",
+  "han": "暗渡陈仓"
+ },
+ {
+  "name": "ke-cach-ngan-quan-hoa",
+  "title": "Cách ngạn quan hỏa",
+  "sub": "Kế thứ 9 · Đứng bờ bên kia xem lửa cháy",
+  "han": "隔岸观火"
+ },
+ {
+  "name": "ke-tieu-ly-tang-dao",
+  "title": "Tiếu lý tàng đao",
+  "sub": "Kế thứ 10 · Trong nụ cười giấu dao",
+  "han": "笑里藏刀"
+ },
+ {
+  "name": "ke-ly-dai-dao-cuong",
+  "title": "Lý đại đào cương",
+  "sub": "Kế thứ 11 · Cây mận chết thay cây đào",
+  "han": "李代桃僵"
+ },
+ {
+  "name": "ke-thuan-thu-khien-duong",
+  "title": "Thuận thủ khiên dương",
+  "sub": "Kế thứ 12 · Tiện tay dắt dê",
+  "han": "顺手牵羊"
+ },
+ {
+  "name": "ke-da-thao-kinh-xa",
+  "title": "Đả thảo kinh xà",
+  "sub": "Kế thứ 13 · Đánh cỏ động rắn",
+  "han": "打草惊蛇"
+ },
+ {
+  "name": "ke-ta-thi-hoan-hon",
+  "title": "Tá thi hoàn hồn",
+  "sub": "Kế thứ 14 · Mượn xác hoàn hồn",
+  "han": "借尸还魂"
+ },
+ {
+  "name": "ke-dieu-ho-ly-son",
+  "title": "Điệu hổ ly sơn",
+  "sub": "Kế thứ 15 · Dụ hổ rời núi",
+  "han": "调虎离山"
+ },
+ {
+  "name": "ke-duc-cam-co-tung",
+  "title": "Dục cầm cố túng",
+  "sub": "Kế thứ 16 · Muốn bắt nên cố ý thả",
+  "han": "欲擒故纵"
+ },
+ {
+  "name": "ke-phao-chuyen-dan-ngoc",
+  "title": "Phao chuyên dẫn ngọc",
+  "sub": "Kế thứ 17 · Ném gạch dẫn ngọc",
+  "han": "抛砖引玉"
+ },
+ {
+  "name": "ke-cam-tac-cam-vuong",
+  "title": "Cầm tặc cầm vương",
+  "sub": "Kế thứ 18 · Bắt giặc phải bắt tướng",
+  "han": "擒贼擒王"
+ },
+ {
+  "name": "ke-phu-de-truu-tan",
+  "title": "Phủ để trừu tân",
+  "sub": "Kế thứ 19 · Rút củi dưới đáy nồi",
+  "han": "釜底抽薪"
+ },
+ {
+  "name": "ke-hon-thuy-mo-ngu",
+  "title": "Hỗn thủy mô ngư",
+  "sub": "Kế thứ 20 · Khuấy nước đục để bắt cá",
+  "han": "混水摸鱼"
+ },
+ {
+  "name": "ke-kim-thien-thoat-xac",
+  "title": "Kim thiền thoát xác",
+  "sub": "Kế thứ 21 · Ve sầu vàng lột xác",
+  "han": "金蝉脱壳"
+ },
+ {
+  "name": "ke-quan-mon-troc-tac",
+  "title": "Quan môn tróc tặc",
+  "sub": "Kế thứ 22 · Đóng cửa bắt giặc",
+  "han": "关门捉贼"
+ },
+ {
+  "name": "ke-vien-giao-can-cong",
+  "title": "Viễn giao cận công",
+  "sub": "Kế thứ 23 · Kết giao nước xa, đánh nước gần",
+  "han": "远交近攻"
+ },
+ {
+  "name": "ke-gia-dao-phat-quac",
+  "title": "Giả đạo phạt Quắc",
+  "sub": "Kế thứ 24 · Mượn đường đánh nước Quắc",
+  "han": "假道伐虢"
+ },
+ {
+  "name": "ke-thau-luong-hoan-tru",
+  "title": "Thâu lương hoán trụ",
+  "sub": "Kế thứ 25 · Trộm xà thay cột",
+  "han": "偷梁换柱"
+ },
+ {
+  "name": "ke-chi-tang-ma-hoe",
+  "title": "Chỉ tang mạ hòe",
+  "sub": "Kế thứ 26 · Chỉ cây dâu mắng cây hòe",
+  "han": "指桑骂槐"
+ },
+ {
+  "name": "ke-gia-si-bat-dien",
+  "title": "Giả si bất điên",
+  "sub": "Kế thứ 27 · Giả ngây dại chứ không điên",
+  "han": "假痴不癫"
+ },
+ {
+  "name": "ke-thuong-oc-truu-the",
+  "title": "Thượng ốc trừu thê",
+  "sub": "Kế thứ 28 · Lên lầu rồi rút thang",
+  "han": "上屋抽梯"
+ },
+ {
+  "name": "ke-thu-thuong-khai-hoa",
+  "title": "Thụ thượng khai hoa",
+  "sub": "Kế thứ 29 · Trên cây nở hoa",
+  "han": "树上开花"
+ },
+ {
+  "name": "ke-phan-khach-vi-chu",
+  "title": "Phản khách vi chủ",
+  "sub": "Kế thứ 30 · Khách trở thành chủ",
+  "han": "反客为主"
+ },
+ {
+  "name": "ke-my-nhan-ke",
+  "title": "Mỹ nhân kế",
+  "sub": "Kế thứ 31 · Kế dùng người đẹp",
+  "han": "美人计"
+ },
+ {
+  "name": "ke-khong-thanh-ke",
+  "title": "Không thành kế",
+  "sub": "Kế thứ 32 · Kế thành trống",
+  "han": "空城计"
+ },
+ {
+  "name": "ke-phan-gian-ke",
+  "title": "Phản gián kế",
+  "sub": "Kế thứ 33 · Dùng gián điệp của địch",
+  "han": "反间计"
+ },
+ {
+  "name": "ke-kho-nhuc-ke",
+  "title": "Khổ nhục kế",
+  "sub": "Kế thứ 34 · Kế tự làm mình đau",
+  "han": "苦肉计"
+ },
+ {
+  "name": "ke-lien-hoan-ke",
+  "title": "Liên hoàn kế",
+  "sub": "Kế thứ 35 · Kế nối vòng",
+  "han": "连环计"
+ },
+ {
+  "name": "ke-tau-vi-thuong-sach",
+  "title": "Tẩu vi thượng sách",
+  "sub": "Kế thứ 36 · Chạy là thượng sách",
+  "han": "走为上"
+ },
+ {
+  "name": "ke",
+  "title": "36 kế",
+  "sub": "Danh sách đầy đủ, ý nghĩa và điển tích",
+  "han": "三十六计"
+ },
+ {
+  "name": "nen-tang-cach-doc-36-ke",
+  "title": "Cách đọc 36 kế",
+  "sub": "Bài nền tảng 1/10",
+  "han": ""
+ },
+ {
+  "name": "nen-tang-am-duong-va-bien-dich",
+  "title": "Âm dương và biến dịch",
+  "sub": "Bài nền tảng 2/10",
+  "han": ""
+ },
+ {
+  "name": "nen-tang-hu-va-thuc",
+  "title": "Hư và thực",
+  "sub": "Bài nền tảng 3/10",
+  "han": ""
+ },
+ {
+  "name": "nen-tang-chinh-va-ky",
+  "title": "Chính và kỳ",
+  "sub": "Bài nền tảng 4/10",
+  "han": ""
+ },
+ {
+  "name": "nen-tang-the",
+  "title": "Thế",
+  "sub": "Bài nền tảng 5/10",
+  "han": ""
+ },
+ {
+  "name": "nen-tang-ap-dung-vao-doi-song-hien-nay",
+  "title": "Áp dụng vào đời sống hiện nay",
+  "sub": "Bài nền tảng 6/10",
+  "han": ""
+ },
+ {
+  "name": "nen-tang-ba-cau-hoi-can-dat-ra-truoc",
+  "title": "Ba câu hỏi cần đặt ra trước",
+  "sub": "Bài nền tảng 7/10",
+  "han": ""
+ },
+ {
+  "name": "nen-tang-ban-do-36-ke",
+  "title": "Bản đồ 36 kế",
+  "sub": "Bài nền tảng 8/10",
+  "han": ""
+ },
+ {
+  "name": "nen-tang-khung-5-cau-hoi-phan-tich-mot-ke",
+  "title": "Khung 5 câu hỏi phân tích một kế",
+  "sub": "Bài nền tảng 9/10",
+  "han": ""
+ },
+ {
+  "name": "nen-tang-pha-ke-va-phong-thu",
+  "title": "Phá kế và phòng thủ",
+  "sub": "Bài nền tảng 10/10",
+  "han": ""
+ },
+ {
+  "name": "nen-tang",
+  "title": "Nền tảng",
+  "sub": "Mười bài cần đọc trước khi học 36 kế",
+  "han": ""
+ },
+ {
+  "name": "lam-viec",
+  "title": "Những kế hay gặp ở chỗ làm",
+  "sub": "10 kế, 10 tình huống",
+  "han": ""
+ },
+ {
+  "name": "hoc-tap",
+  "title": "Những kế hay gặp ở trường lớp",
+  "sub": "10 kế, 10 tình huống",
+  "han": ""
+ },
+ {
+  "name": "tinh-yeu",
+  "title": "Nhận ra thao túng trong chuyện tình cảm",
+  "sub": "10 kế, 10 tình huống",
+  "han": ""
+ },
+ {
+  "name": "gia-dinh",
+  "title": "Những kế hay gặp trong chuyện nhà",
+  "sub": "10 kế, 10 tình huống",
+  "han": ""
+ },
+ {
+  "name": "mua-sam",
+  "title": "Những kế hay gặp khi mua sắm và trên mạng",
+  "sub": "10 kế, 10 tình huống",
+  "han": ""
+ },
+ {
+  "name": "trang-chu",
+  "title": "Học 36 kế",
+  "sub": "Qua sử sách và chuyện thời nay",
+  "han": "三十六计"
+ },
+ {
+  "name": "hoc",
+  "title": "Trang học",
+  "sub": "Nền tảng · 36 kế · Luyện tập · Lĩnh vực",
+  "han": ""
+ }
+]

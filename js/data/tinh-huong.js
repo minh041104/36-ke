@@ -59,7 +59,7 @@ const S = [
    trap:"Kế này chỉ hợp lý khi đội ngũ có đủ năng lực và chỉ thiếu quyết tâm. Nếu năng lực không đủ, tự rút thang chỉ biến khó khăn thành thất bại không thể cứu vãn."},
   {id:"mua-lai", set:"vitri", text:"Một tập đoàn mua lại một công ty nhỏ và ép đội ngũ sáng lập đến cùng: không giữ ai, không cho bán cổ phần, không để họ lối ra nào trong ngành. Đội ngũ sáng lập phản ứng bằng kiện tụng, rò rỉ thông tin và kéo theo các khách hàng lớn. Thương vụ đổ vỡ, tập đoàn mất nhiều hơn được.",
    answers:[22], partial:[], explain:"Đây là Quan môn tróc tặc gãy đúng chỗ Tôn Tử đã cảnh báo: vây quân địch thì phải chừa một lối. Dồn đối phương vào đường cùng khiến họ không còn gì để mất và chống trả liều lĩnh.",
-   trap:"Bài học không phải là đừng dùng kế, mà là phải biết điểm gãy. Một lối ra được thiết kế khéo, như một thỏa thuận chia tay đàng hoàng, thường rẻ hơn rất nhiều so với một đối thủ liều mạng."}
+   trap:"Bài học ở đây là phải biết điểm gãy của kế mình dùng. Một lối ra được thiết kế khéo, như một thỏa thuận chia tay đàng hoàng, thường rẻ hơn rất nhiều so với một đối thủ liều mạng."}
 ,
   {id:"vu-kien", set:"thoico", text:"Một startup bị một tập đoàn lớn kiện vi phạm bằng sáng chế. Tập đoàn muốn giải quyết nhanh để dằn mặt cả ngành. Startup có luật sư giỏi với chi phí thấp, nên không vội thương lượng mà theo đuổi đầy đủ từng bước thủ tục. Hai năm sau, tập đoàn đã tốn rất nhiều tiền, ban lãnh đạo mới không còn mặn mà với vụ kiện, và họ đề nghị hòa giải với điều kiện có lợi cho startup.",
    answers:[4], partial:[9], explain:"Thời gian đứng về phía startup vì chi phí của họ thấp, còn tập đoàn tiêu hao dần trong chính cuộc đối đầu. Startup không né tránh, chỉ không để mình bị cuốn vào nhịp nhanh mà đối phương muốn.",
@@ -105,7 +105,7 @@ const S = [
    answers:[26], partial:[], explain:"Lời phê bình nhắm vào một người để gửi thông điệp tới người khác mà giám đốc không tiện nói thẳng. Thông điệp đến đúng người nhận.",
    trap:"Hãy để ý điểm gãy: người nhân viên mới phải chịu một lời phê bình nặng hơn mức đáng nhận. Nếu họ hoặc người khác thấy bất công, uy tín của giám đốc sẽ bị ảnh hưởng."},
   {id:"nha-cung-cap", set:"tamly", text:"Một nhà cung cấp liên tục mời giám đốc mua hàng của một công ty đi nghỉ dưỡng sang trọng, tặng quà đắt tiền và khen ngợi tầm nhìn của ông. Dần dần ông bỏ qua các báo cáo chất lượng tiêu cực về nhà cung cấp này và gạt đi ý kiến của nhân viên cấp dưới.",
-   answers:[31], partial:[], explain:"Ham muốn và sự tâng bốc bào mòn dần phán đoán của người ra quyết định. Dấu hiệu rõ nhất không phải quà cáp, mà là việc ông ngày càng xa cách những người nói thật với mình.",
+   answers:[31], partial:[], explain:"Ham muốn và sự tâng bốc bào mòn dần phán đoán của người ra quyết định. Quà cáp thì dễ thấy, nhưng dấu hiệu rõ nhất là việc ông ngày càng xa cách những người nói thật với mình.",
    trap:"Nếu bạn nghĩ tới Tiếu lý tàng đao ở lăng kính Nhận thức: kế đó dùng thiện chí cho một lần ra tay, còn ở đây là sự bào mòn kéo dài."},
   {id:"nguoi-dao-ngu", set:"tamly", text:"Một nhân viên của công ty đối thủ tìm đến bạn, kể mình bị cắt lương và bị sếp sỉ nhục trước mọi người, kèm bằng chứng là một email kỷ luật. Anh ta muốn về làm cho bạn và hứa mang theo nhiều thông tin về đối thủ. Về sau bạn phát hiện toàn bộ là kịch bản do đối thủ dựng lên để cài người.",
    answers:[34], partial:[], explain:"Một tổn thất được dàn dựng khiến câu chuyện trở nên đáng tin, và người ta ít khi nghi ngờ người đã chịu thiệt. Cách phòng: thông cảm thì được, nhưng giới hạn quyền tiếp cận cho đến khi kiểm chứng xong.",

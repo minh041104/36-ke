@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://minh041104.github.io/36-ke/sitemap.xml
