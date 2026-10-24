@@ -58,7 +58,9 @@ const DONATE = {
   qrImage: "",                        // Hoặc đường dẫn tới ảnh QR có sẵn, ví dụ "qr.png". Chỉ dùng khi không điền bank.
   note: "Ung ho 36 ke",               // Nội dung chuyển khoản điền sẵn trong mã QR
   crypto: [
-    // {coin:"USDT", network:"TRC20", address:"T..."},
+    {coin:"USDT", network:"TRC20 (Tron)", address:"TYDCHoFu4W5KZyaNPjnCcRqinunsF3zK3B"},
+    {coin:"USDT", network:"BEP20 (BNB Smart Chain)", address:"0xbe647cb1498a6190ed25876c92a531d48e609abe"},
+    {coin:"USDT", network:"ERC20 (Ethereum)", address:"0xbe647cb1498a6190ed25876c92a531d48e609abe", hint:"Phí gửi trên Ethereum khá cao, nên dùng TRC20 hoặc BEP20 nếu ví của bạn hỗ trợ."},
   ]
 };
 const bank = DONATE.bank.id && DONATE.bank.account ? DONATE.bank : null;
@@ -85,7 +87,7 @@ function openDonate(){
     if (DONATE.crypto.length) {
       h += '<section class="dsec"><h3>Crypto</h3>' + DONATE.crypto.map(c =>
         '<div class="wallet"><p class="wname">' + esc(c.coin) + ' <span class="net">mạng ' + esc(c.network) + '</span></p>' + copyRow("Địa chỉ", c.address) +
-        '<p class="dwarn">Chỉ gửi ' + esc(c.coin) + ' qua mạng ' + esc(c.network) + '. Gửi nhầm mạng sẽ mất tiền.</p></div>').join("") + '</section>';
+        '<p class="dwarn">Chỉ gửi ' + esc(c.coin) + ' qua mạng ' + esc(c.network) + '. Gửi nhầm mạng sẽ mất tiền.</p>' + (c.hint ? '<p class="dhint">' + esc(c.hint) + '</p>' : '') + '</div>').join("") + '</section>';
     }
     d.innerHTML = h;
     document.body.append(d);
