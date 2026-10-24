@@ -1,4 +1,4 @@
-# Học 36 kế từ bản chất
+# Học 36 kế
 
 Web học Tam thập lục kế theo hướng hiểu cơ chế thay vì học thuộc. Gồm ba phần:
 

@@ -17,7 +17,7 @@ const qrSrc = bank
   ? "https://img.vietqr.io/image/" + encodeURIComponent(bank.id) + "-" + encodeURIComponent(bank.account) + "-compact2.png?addInfo=" + encodeURIComponent(DONATE.note) + "&accountName=" + encodeURIComponent(bank.name)
   : DONATE.qrImage ? new URL(DONATE.qrImage, siteRoot).href : "";
 const canDonate = !!(qrSrc || DONATE.crypto.length);
-function donateHTML(text){ return canDonate ? '<p class="donate-cta"><button class="linkbtn donate-open">☕ ' + esc(text) + '</button></p>' : ''; }
+function donateHTML(text){ return canDonate ? '<p class="donate-cta"><button class="linkbtn donate-open">' + esc(text) + '</button></p>' : ''; }
 function copyRow(label, value){
   return '<div class="crow"><span class="clabel">' + label + '</span><code>' + esc(value) + '</code><button class="btn sm" data-copy="' + esc(value) + '">Sao chép</button></div>';
 }
@@ -35,8 +35,8 @@ function openDonate(){
   if (!d) {
     d = document.createElement("dialog");
     d.id = "donate"; d.className = "donate"; d.setAttribute("aria-labelledby", "donate-h");
-    let h = '<div class="dhead"><h2 id="donate-h">Ủng hộ tác giả</h2><button class="btn sq" data-close aria-label="Đóng">×</button></div>' +
-      '<p class="dlead">Trang này miễn phí và không có quảng cáo. Nếu nó giúp ích cho bạn, một ly cà phê sẽ giúp mình có thêm thời gian viết thêm tình huống và bài học.</p>';
+    let h = '<div class="dhead"><h2 id="donate-h">Mời mình ly cà phê</h2><button class="btn sq" data-close aria-label="Đóng">×</button></div>' +
+      '<p class="dlead">Mình làm trang này một mình và không chạy quảng cáo. Nếu thấy có ích, bạn ủng hộ bao nhiêu cũng được. Số tiền này cho mình thêm thời gian viết tình huống mới.</p>';
     if (qrSrc) {
       h += '<section class="dsec"><h3>Chuyển khoản qua mã QR</h3><img class="qr" src="' + esc(qrSrc) + '" alt="Mã QR chuyển khoản">' +
         '<p class="dhint">Mở app ngân hàng hoặc MoMo, chọn quét QR. Nếu đang dùng điện thoại, nhấn giữ ảnh để lưu rồi chọn quét QR từ ảnh.</p>' +

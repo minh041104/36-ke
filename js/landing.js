@@ -6,7 +6,7 @@ const TRY = {scenario:"dam-phan", options:[1, 6, 8, 10]};
 document.getElementById("grid36").innerHTML =
   K.slice().sort((a, b) => a.id - b.id).map(k => '<span class="t ' + k.lens + '" lang="zh">' + [...k.han][0] + '</span>').join("");
 
-document.getElementById("facts").textContent = F.length + " bài nền tảng · " + K.length + " kế · " + S.length + " tình huống · Miễn phí, không cần tài khoản";
+document.getElementById("facts").textContent = F.length + " bài nền tảng, " + K.length + " kế, " + S.length + " tình huống. Miễn phí, không cần đăng ký.";
 
 /* Người đã học dở: đổi nút thành Học tiếp và hiện tiến độ */
 try {

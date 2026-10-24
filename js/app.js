@@ -97,14 +97,14 @@ function rerenderCurrent(){
 function toTopOf(el){ window.scrollTo({top: Math.max(0, el.getBoundingClientRect().top + window.scrollY - 80)}); }
 
 const INTROS = {
-  found:{h:"Nền tảng: mười bài cần nắm trước khi học kế", p:"Gồm cách đọc văn bản 36 kế, âm dương biến dịch, hư thực, chính kỳ, thế, cách áp dụng vào đời sống hiện nay, ba câu hỏi nên đặt ra trước mọi tình huống, bản đồ 36 kế, khung 5 câu hỏi phân tích một kế, và cách phá kế. Bài nào cũng có nguyên văn, phần giải thích, một câu hỏi tình huống và một bài tập tự viết."},
-  learn:{h:"Các kế theo lăng kính", p:"Đủ 36 kế, chia theo sáu lăng kính và sắp theo thứ tự nên học: Nhận thức, Vị trí, Bên thứ ba, Thời cơ và nguồn lực, Tâm lý và động cơ, Trọng tâm và cấu trúc. Mỗi kế có điển tích, phân tích theo khung 5 câu hỏi và phần so sánh với kế dễ nhầm."},
-  practice:{h:"Luyện nhận diện kế qua tình huống", p:"Các tình huống thời nay, không ghi tên kế, chia theo bộ. Trước khi chọn đáp án, thử xác định xem điều gì đang bị thao túng: nhận thức, vị trí, quan hệ với bên thứ ba, thời cơ, tâm lý, hay trọng tâm của đối phương."}
+  found:{h:"Mười bài nền tảng", p:"Nên đọc mười bài này trước khi vào các kế. Chúng giải thích những khái niệm mà phần sau dùng liên tục như hư thực, chính kỳ và thế. Mỗi bài có nguyên văn chữ Hán, phần giải thích, một câu hỏi và một bài tự viết ngắn."},
+  learn:{h:"36 kế", p:"Mình chia 36 kế thành sáu nhóm, gọi là lăng kính, và xếp theo thứ tự nên học. Mỗi kế có điển tích, phần phân tích, và một kế hay bị nhầm với nó để bạn so sánh."},
+  practice:{h:"Đoán kế qua tình huống", p:"Tình huống không ghi tên kế. Trước khi chọn, hỏi xem người ta đang tác động vào đâu: cách bạn nhìn sự việc, vị trí, một bên thứ ba, thời điểm, tâm lý, hay chỗ dựa chính của đối phương."}
 };
 function renderIntro(){
   const i = INTROS[active];
   document.getElementById("intro").innerHTML = '<h1>' + esc(i.h) + '</h1><p>' + esc(i.p) + '</p>' +
-    (sampleReady && !sample && active === "found" ? '<p class="ai-note">Muốn được hỏi vặn bài làm của mình? Bấm “Sao chép prompt cho Claude” để lấy đề phản biện có sẵn bài làm của bạn, rồi dán vào Claude (bản miễn phí cũng được).</p>' : '');
+    (sampleReady && !sample && active === "found" ? '<p class="ai-note">Ở bài tự viết, nút “Sao chép prompt cho Claude” chép sẵn đề và bài làm của bạn. Dán vào Claude, kể cả bản miễn phí, để được hỏi vặn lại.</p>' : '');
 }
 function renderProgress(){
   const f = F.filter(x => state.fdone[x.id]).length;
@@ -155,7 +155,7 @@ function renderLesson(){
       '<div class="row"><span class="saved" id="wsaved"></span><button class="btn primary" id="wcrit">' + claudeLabel("Nhờ Claude phản biện bài phân tích") + '</button>' +
       '<button class="btn" id="wdone"></button></div><div class="coach" id="wcoach" aria-live="polite"></div></section>';
   }
-  if (allDone) h += '<div class="done-banner"><p>Bạn đã học xong phần nền tảng. Khi sang phần các kế, để ý xem mỗi kế tạo ra chỗ hư nào, dựa vào cái chính nào và cần thế ra sao.</p><button class="btn primary" id="gokeys">Sang phần các kế</button>' + donateHTML("Thấy bổ ích? Mời tác giả một ly cà phê") + '</div>';
+  if (allDone) h += '<div class="done-banner"><p>Bạn đã học xong phần nền tảng. Khi sang phần các kế, để ý xem mỗi kế tạo ra chỗ hư nào, dựa vào cái chính nào và cần thế ra sao.</p><button class="btn primary" id="gokeys">Sang phần các kế</button>' + donateHTML("Nếu thấy có ích, mời mình một ly cà phê") + '</div>';
   h += '<nav class="lnav">' + (f.id > 1 ? '<button class="btn navbtn" id="fprev"><small>Bài trước</small>' + esc(fById[f.id-1].title) + '</button>' : '<span></span>') +
        (f.id < F.length ? '<button class="btn primary navbtn next" id="fnext"><small>Bài tiếp</small>' + esc(fById[f.id+1].title) + '</button>' : '<button class="btn primary navbtn next" id="fnext"><small>Xong phần nền tảng</small>Sang phần các kế</button>') + '</nav>';
   v.innerHTML = h;
@@ -329,7 +329,7 @@ function renderKe(stamp){
   const paintU = () => { const on = !!state.understood[k.id]; ub.textContent = on ? "Đã hiểu ✓" : "Đánh dấu đã hiểu"; ub.classList.toggle("on", on); ub.setAttribute("aria-pressed", on); };
   const paintAll = () => {
     const box = document.getElementById("kalldone");
-    box.innerHTML = K.every(x => state.understood[x.id]) ? '<div class="done-banner"><p>Bạn đã đánh dấu hiểu đủ 36 kế. Bước tiếp theo là nhận ra chúng trong những tình huống không ghi tên kế.</p><button class="btn primary" id="gopractice">Sang luyện tình huống</button>' + donateHTML("Thấy bổ ích? Mời tác giả một ly cà phê") + '</div>' : '';
+    box.innerHTML = K.every(x => state.understood[x.id]) ? '<div class="done-banner"><p>Bạn đã đánh dấu hiểu đủ 36 kế. Giờ thử nhận ra chúng trong các tình huống không ghi tên.</p><button class="btn primary" id="gopractice">Sang luyện tình huống</button>' + donateHTML("Nếu thấy có ích, mời mình một ly cà phê") + '</div>' : '';
     const gp = document.getElementById("gopractice"); if (gp) gp.onclick = () => show("practice", true);
   };
   paintU(); paintAll();
