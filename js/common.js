@@ -23,6 +23,8 @@ if ("serviceWorker" in navigator && location.protocol.startsWith("http"))
    Tạo tài khoản ở goatcounter.com, rồi điền mã (phần trước .goatcounter.com) vào đây. Để trống thì không đo gì. */
 const GOATCOUNTER = "minh041104";
 if (GOATCOUNTER && location.protocol.startsWith("http")) {
+  /* Bỏ tiền tố /36-ke vì phần Domain trong cài đặt GoatCounter đã là minh041104.github.io/36-ke */
+  window.goatcounter = {path: p => p.replace(/^\/36-ke(?=\/|$)/, "") || "/"};
   const s = document.createElement("script");
   s.async = true; s.src = "https://gc.zgo.at/count.js";
   s.dataset.goatcounter = "https://" + GOATCOUNTER + ".goatcounter.com/count";
