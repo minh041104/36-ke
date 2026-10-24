@@ -72,6 +72,15 @@ function donateHTML(text){ return canDonate ? '<p class="donate-cta"><button cla
 function copyRow(label, value){
   return '<div class="crow"><span class="clabel">' + label + '</span><code>' + esc(value) + '</code><button class="btn sm" data-copy="' + esc(value) + '">Sao chép</button></div>';
 }
+function showWallet(d, i){
+  const c = DONATE.crypto[i];
+  d.querySelectorAll(".netbtn").forEach(b => b.setAttribute("aria-pressed", +b.dataset.net === i));
+  let qr = "";
+  if (window.qrcode) { const q = qrcode(0, "M"); q.addData(c.address); q.make(); qr = '<img class="cqr" src="' + q.createDataURL(8, 16) + '" alt="Mã QR địa chỉ ví ' + esc(c.coin + " " + c.network) + '">'; }
+  d.querySelector("#wallet").innerHTML = qr +
+    '<p class="wname">' + esc(c.coin) + ' <span class="net">mạng ' + esc(c.network) + '</span></p>' + copyRow("Địa chỉ", c.address) +
+    '<p class="dwarn">Chỉ gửi ' + esc(c.coin) + ' qua mạng ' + esc(c.network) + '. Gửi nhầm mạng sẽ mất tiền.</p>' + (c.hint ? '<p class="dhint">' + esc(c.hint) + '</p>' : '');
+}
 function openDonate(){
   let d = document.getElementById("donate");
   if (!d) {
@@ -85,14 +94,19 @@ function openDonate(){
         (bank ? copyRow("Ngân hàng", bank.id) + copyRow("Số tài khoản", bank.account) + (bank.name ? copyRow("Chủ tài khoản", bank.name) : "") : "") + '</section>';
     }
     if (DONATE.crypto.length) {
-      h += '<section class="dsec"><h3>Crypto</h3>' + DONATE.crypto.map(c =>
-        '<div class="wallet"><p class="wname">' + esc(c.coin) + ' <span class="net">mạng ' + esc(c.network) + '</span></p>' + copyRow("Địa chỉ", c.address) +
-        '<p class="dwarn">Chỉ gửi ' + esc(c.coin) + ' qua mạng ' + esc(c.network) + '. Gửi nhầm mạng sẽ mất tiền.</p>' + (c.hint ? '<p class="dhint">' + esc(c.hint) + '</p>' : '') + '</div>').join("") + '</section>';
+      const coins = [...new Set(DONATE.crypto.map(c => c.coin))];
+      h += '<section class="dsec"><h3>Crypto' + (coins.length === 1 ? ' (' + esc(coins[0]) + ')' : '') + '</h3>' +
+        '<p class="dhint">Chọn mạng mà ví hoặc sàn của bạn dùng để gửi.</p>' +
+        '<div class="nets" role="group" aria-label="Chọn mạng">' + DONATE.crypto.map((c, i) =>
+          '<button class="netbtn" data-net="' + i + '" aria-pressed="false">' + esc((coins.length > 1 ? c.coin + ' ' : '') + c.network.split(" ")[0]) + '</button>').join("") + '</div>' +
+        '<div class="wallet" id="wallet" aria-live="polite"></div></section>';
     }
     d.innerHTML = h;
     document.body.append(d);
+    if (DONATE.crypto.length) showWallet(d, 0);
     d.addEventListener("click", async e => {
       if (e.target === d || e.target.closest("[data-close]")) { d.close(); return; }
+      const n = e.target.closest("[data-net]"); if (n) { showWallet(d, +n.dataset.net); return; }
       const b = e.target.closest("[data-copy]"); if (!b) return;
       const ok = await copyText(b.dataset.copy);
       b.textContent = ok ? "Đã chép ✓" : "Không chép được";
