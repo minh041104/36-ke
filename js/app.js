@@ -475,6 +475,8 @@ function choose(id){
   state.quiz[s.id] = verdict;
   state.reasons[s.id] = Object.assign(state.reasons[s.id] || {}, {pick:id, text:document.getElementById("reason").value});
   save(); renderProgress();
+  const dc = pTarget === "dpractice" && document.querySelector('[data-sub="luyen"] .cnt');
+  if (dc) { const l = setScen(setId); dc.textContent = l.filter(x => state.quiz[x.id] === "correct").length + "/" + l.length; }
   const rl = document.getElementById("relens"); if (rl) rl.parentNode.remove();
   reveal(id, true);
   const el = document.querySelector('.dots .dot[data-i="' + si + '"], .segbar .seg[data-i="' + si + '"]');
