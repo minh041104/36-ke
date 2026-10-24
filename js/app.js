@@ -47,7 +47,7 @@ async function copyPrompt(container, prompt, followRule){
 }
 
 /* ---------- Ủng hộ ---------- */
-const BMC_USER = ""; // Điền username Buy Me a Coffee (phần sau buymeacoffee.com/). Để trống thì ẩn mọi nút ủng hộ.
+const BMC_USER = "36thanhhoake"; // Điền username Buy Me a Coffee (phần sau buymeacoffee.com/). Để trống thì ẩn mọi nút ủng hộ.
 const BMC_URL = BMC_USER ? "https://buymeacoffee.com/" + encodeURIComponent(BMC_USER) : "";
 function bmcHTML(text){ return BMC_URL ? '<p class="bmc"><a href="' + BMC_URL + '" target="_blank" rel="noopener">☕ ' + esc(text) + '</a></p>' : ''; }
 if (BMC_URL) { const a = document.getElementById("bmc-foot"); a.href = BMC_URL; a.hidden = false; }
